@@ -1,45 +1,56 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="flex h-screen bg-gray-100">
-    <div class="w-64 bg-slate-900 text-white hidden md:block">
-        <div class="p-6 text-2xl font-bold border-b border-slate-700">ICITEBC</div>
-        <nav class="mt-6">
-            <a href="#" class="block py-3 px-6 bg-blue-600">Mis Cursos</a>
-            <a href="/admin" class="block py-3 px-6 hover:bg-slate-800">Panel Admin</a>
+<div class="flex h-screen bg-gray-100 font-sans">
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-xl">
+        <div class="p-6 text-xl font-bold border-b border-slate-700 bg-slate-800">
+            ICITEBC <span class="text-blue-400 text-xs block">Panel de Alumno</span>
+        </div>
+        
+        <nav class="flex-1 mt-4 px-4 space-y-2">
+            <a href="{% url 'dashboard' %}" class="flex items-center p-3 bg-blue-600 rounded-lg">
+                <span class="mr-3">📚</span> Mis Cursos
+            </a>
+            <a href="/admin" class="flex items-center p-3 hover:bg-slate-800 rounded-lg text-slate-400 transition">
+                <span class="mr-3">⚙️</span> Panel Admin
+            </a>
         </nav>
-    </div>
 
-    <div class="flex-1 overflow-y-auto p-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-8">Bienvenido, {{ user.first_name }}</h1>
+        <div class="p-4 border-t border-slate-700">
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="w-full flex items-center justify-center p-2 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition border border-red-500/20">
+                    <span class="mr-2">🚪</span> Cerrar Sesión
+                </button>
+            </form>
+        </div>
+    </aside>
 
-        <h2 class="text-xl font-semibold mb-4">📚 Mis Cursos Activos</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <main class="flex-1 overflow-y-auto p-8">
+        <header class="mb-10">
+            <h1 class="text-3xl font-extrabold text-slate-800">Bienvenido, {{ user.username }}</h1>
+            <p class="text-slate-500">Gestión de cursos y progreso académico.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for item in mis_cursos %}
-            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="h-2 bg-blue-600"></div>
                 <div class="p-6">
-                    <h3 class="font-bold text-lg mb-2">{{ item.curso.titulo }}</h3>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ item.progreso }}%"></div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">{{ item.curso.titulo }}</h3>
+                    <div class="w-full bg-gray-100 rounded-full h-2 mb-2">
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: {{ item.progreso }}%"></div>
                     </div>
-                    <span class="text-sm text-gray-500">{{ item.progreso }}% completado</span>
-                    <a href="#" class="mt-4 block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Continuar</a>
+                    <p class="text-xs text-slate-500 mb-4">{{ item.progreso }}% completado</p>
+                    <a href="#" class="block w-full text-center bg-slate-800 text-white py-2 rounded-lg hover:bg-blue-600 transition">Ver Lecciones</a>
                 </div>
             </div>
             {% empty %}
-            <p class="text-gray-500 italic">Aún no tienes cursos aprobados.</p>
+            <div class="col-span-full text-center py-20 bg-white rounded-2xl border-2 border-dashed border-gray-200">
+                <p class="text-gray-400 italic">No tienes cursos activos. Contacta al administrador para aprobación.</p>
+            </div>
             {% endfor %}
         </div>
-
-        {% if pendientes %}
-        <h2 class="text-xl font-semibold mb-4 text-orange-600">⏳ Esperando Aprobación del Instructor</h2>
-        <div class="bg-orange-50 border-l-4 border-orange-400 p-4">
-            <ul class="list-disc ml-5">
-                {% for p in pendientes %}
-                <li class="text-orange-800">Has solicitado acceso a: **{{ p.curso.titulo }}**</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-    </div>
+    </main>
 </div>
 {% endblock %}

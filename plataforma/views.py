@@ -17,18 +17,18 @@ def home(request):
             )
             enviado = True 
             
-    # Cambié 'plataforma/index.html' por 'index.html' si es tu página principal
-    return render(request, 'index.html', {'enviado': enviado})
+    # Asumiendo que index.html está en plataforma/templates/plataforma/
+    return render(request, 'plataforma/index.html', {'enviado': enviado})
 
 @login_required
 def dashboard(request):
-    # Traemos las inscripciones filtradas por el alumno logueado
+    # Optimizamos la consulta trayendo solo lo del usuario actual
     inscripciones = Inscripcion.objects.filter(estudiante=request.user)
     
     mis_cursos = inscripciones.filter(estado='aprobado')
     pendientes = inscripciones.filter(estado='pendiente')
     
-    # CORRECCIÓN DE RUTA: Debe coincidir con tu carpeta 'plataforma' y el nombre 'dashboard.html'
+    # RUTA CORREGIDA según tu estructura de carpetas en VS Code
     return render(request, 'plataforma/dashboard.html', {
         'mis_cursos': mis_cursos,
         'pendientes': pendientes
