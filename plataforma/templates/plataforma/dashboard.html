@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex h-screen bg-gray-100">
+    <div class="w-64 bg-slate-900 text-white hidden md:block">
+        <div class="p-6 text-2xl font-bold border-b border-slate-700">ICITEBC</div>
+        <nav class="mt-6">
+            <a href="#" class="block py-3 px-6 bg-blue-600">Mis Cursos</a>
+            <a href="/admin" class="block py-3 px-6 hover:bg-slate-800">Panel Admin</a>
+        </nav>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Bienvenido, {{ user.first_name }}</h1>
+
+        <h2 class="text-xl font-semibold mb-4">📚 Mis Cursos Activos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {% for item in mis_cursos %}
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <h3 class="font-bold text-lg mb-2">{{ item.curso.titulo }}</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ item.progreso }}%"></div>
+                    </div>
+                    <span class="text-sm text-gray-500">{{ item.progreso }}% completado</span>
+                    <a href="#" class="mt-4 block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Continuar</a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 italic">Aún no tienes cursos aprobados.</p>
+            {% endfor %}
+        </div>
+
+        {% if pendientes %}
+        <h2 class="text-xl font-semibold mb-4 text-orange-600">⏳ Esperando Aprobación del Instructor</h2>
+        <div class="bg-orange-50 border-l-4 border-orange-400 p-4">
+            <ul class="list-disc ml-5">
+                {% for p in pendientes %}
+                <li class="text-orange-800">Has solicitado acceso a: **{{ p.curso.titulo }}**</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
