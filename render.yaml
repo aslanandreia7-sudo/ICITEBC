@@ -2,6 +2,7 @@ services:
   - type: web
     name: icitebc-app
     env: python
+    plan: free  # <--- AGREGA ESTA LÍNEA AQUÍ
     buildCommand: |
       pip install -r requirements.txt
       python manage.py collectstatic --no-input
