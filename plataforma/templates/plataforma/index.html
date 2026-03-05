@@ -4,219 +4,1309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICITEBC - Capacitación Técnica Profesional</title>
+    <title>ICITEBC — Agente Capacitador Certificado CONOCER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        .gradient-navy { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-        html { scroll-behavior: smooth; }
-        .swiper-pagination-bullet-active { background: #3b82f6 !important; }
-        
-        /* Animación simple de entrada */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        :root {
+            --navy: #050d1a;
+            --navy-mid: #0c1f3f;
+            --blue: #1a56db;
+            --blue-light: #3b82f6;
+            --accent: #00d4ff;
+            --gold: #f5c518;
+            --text: #e8edf5;
+            --muted: #8899bb;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .syne { font-family: 'Syne', sans-serif; }
+
+        /* ─── NOISE OVERLAY ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(5, 13, 26, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0.8rem 2rem;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .nav-logo .icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--accent) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            color: white;
+        }
+        .nav-logo span {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            letter-spacing: 0.05em;
+        }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            letter-spacing: 0.03em;
+        }
+        .nav-links a:hover { color: white; }
+        .nav-cta {
+            background: var(--blue);
+            color: white !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600 !important;
+        }
+        .nav-cta:hover { background: var(--blue-light); color: white !important; }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(26, 86, 219, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 86, 219, 0.07) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(ellipse, rgba(26,86,219,0.2) 0%, rgba(0,212,255,0.05) 50%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge-known {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 100px;
+            padding: 0.4rem 1rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease both;
+        }
+        .badge-known .dot {
+            width: 6px; height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s 0.1s ease both;
+        }
+
+        .hero h1 .line-accent {
+            background: linear-gradient(90deg, var(--accent), var(--blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--muted);
+            max-width: 560px;
+            line-height: 1.75;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s 0.2s ease both;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s 0.3s ease both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--blue), #1d4ed8);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(26,86,219,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 60px rgba(26,86,219,0.6);
+            background: linear-gradient(135deg, #2563eb, var(--blue));
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ─── STATS BAND ─── */
+        .stats-band {
+            background: rgba(255,255,255,0.025);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 2.5rem 2rem;
+        }
+        .stats-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        .stat-item .number {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent), var(--blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .stat-item .label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            margin-top: 0.4rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ─── CONOCER SECTION ─── */
+        .section {
+            padding: 7rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+        }
+        .section-sub {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 580px;
+        }
+
+        /* CONOCER card */
+        .conocer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        @media (max-width: 768px) { .conocer-grid { grid-template-columns: 1fr; } }
+
+        .conocer-card {
+            background: rgba(12, 31, 63, 0.6);
+            padding: 2.5rem;
+            transition: background 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .conocer-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--blue));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .conocer-card:hover::before { opacity: 1; }
+        .conocer-card:hover { background: rgba(26,86,219,0.1); }
+
+        .conocer-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .conocer-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            color: white;
+        }
+        .conocer-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* DC3 HIGHLIGHT */
+        .dc3-banner {
+            background: linear-gradient(135deg, rgba(26,86,219,0.15) 0%, rgba(0,212,255,0.08) 100%);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .dc3-banner::after {
+            content: 'DC3';
+            position: absolute;
+            right: -1rem;
+            bottom: -2rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 10rem;
+            font-weight: 800;
+            color: rgba(0, 212, 255, 0.04);
+            line-height: 1;
+            pointer-events: none;
+        }
+        @media (max-width: 640px) {
+            .dc3-banner { grid-template-columns: 1fr; }
+            .dc3-stamp { display: none; }
+        }
+
+        .dc3-stamp {
+            width: 110px; height: 110px;
+            border: 3px solid rgba(0,212,255,0.4);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-shrink: 0;
+            background: rgba(0,212,255,0.05);
+        }
+        .dc3-stamp .big { font-family: 'Syne',sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1; }
+        .dc3-stamp .small { font-size: 0.6rem; font-weight: 600; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+        .dc3-content h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: white;
+        }
+        .dc3-content p {
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 500px;
+        }
+        .dc3-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 1.2rem;
+        }
+        .dc3-tag {
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.2);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        /* ─── CURSOS GRID ─── */
+        .cursos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .curso-card {
+            background: rgba(12, 31, 63, 0.5);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .curso-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0,212,255,0.25);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.1);
+        }
+
+        .curso-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+        .curso-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 190px;
+            background: linear-gradient(to bottom, transparent 40%, rgba(5,13,26,0.9) 100%);
+        }
+
+        .curso-body { padding: 1.5rem; }
+        .curso-tag {
+            display: inline-block;
+            background: rgba(26,86,219,0.25);
+            border: 1px solid rgba(26,86,219,0.4);
+            color: var(--blue-light);
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+        .curso-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .curso-body p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .curso-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .curso-dc3 {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+        .curso-dc3 .dc3-dot {
+            width: 7px; height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ─── PROCESO ─── */
+        .proceso-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0;
+            position: relative;
+        }
+        .proceso-steps::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            left: 5%;
+            right: 5%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), rgba(0,212,255,0.3), transparent);
+        }
+        @media(max-width:768px) { .proceso-steps::before { display:none; } }
+
+        .paso {
+            text-align: center;
+            padding: 0 1.5rem 2rem;
+            position: relative;
+        }
+        .paso-num {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(26,86,219,0.3), rgba(0,212,255,0.2));
+            border: 1px solid rgba(0,212,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 2;
+            background-color: var(--navy);
+        }
+        .paso h4 { font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+        .paso p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+        /* ─── TESTIMONIALS ─── */
+        .testimonial-card {
+            background: rgba(12, 31, 63, 0.7);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem; right: 1.5rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 5rem;
+            color: rgba(0,212,255,0.1);
+            line-height: 1;
+        }
+        .testimonial-card p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .author-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+        }
+        .author-name { font-weight: 700; font-size: 0.88rem; color: white; }
+        .author-role { font-size: 0.75rem; color: var(--muted); }
+
+        /* ─── CONTACT ─── */
+        .contact-wrap {
+            background: rgba(12, 31, 63, 0.5);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 32px;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-wrap::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(ellipse, rgba(26,86,219,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        @media(max-width:640px) { .contact-wrap { padding: 2rem; } }
+
+        .input-field {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 0.9rem 1.2rem;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .input-field::placeholder { color: rgba(255,255,255,0.25); }
+        .input-field:focus {
+            border-color: rgba(0,212,255,0.5);
+            background: rgba(0,212,255,0.04);
+            box-shadow: 0 0 0 3px rgba(0,212,255,0.08);
+        }
+        .input-label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--blue), #2563eb);
+            color: white;
+            border: none;
+            padding: 1.1rem 2rem;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(26,86,219,0.3);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 60px rgba(26,86,219,0.5);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        footer .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        footer .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        footer p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        footer .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        footer .footer-links a:hover { color: var(--accent); }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        .swiper-pagination-bullet { background: var(--muted) !important; }
+        .swiper-pagination-bullet-active { background: var(--accent) !important; }
+
+        /* ─── MOBILE NAV ─── */
+        .menu-btn { display: none; background: none; border: none; cursor: pointer; color: white; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-btn { display: flex; }
+        }
+
+        /* Divider line */
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--blue));
+            border-radius: 2px;
+            margin-bottom: 2rem;
+        }
     </style>
 </head>
-<body class="bg-slate-50 overflow-x-hidden">
+<body>
 
-    <section class="gradient-navy text-white relative overflow-hidden min-h-[80vh] flex items-center">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
-        
-        <div class="container mx-auto px-4 py-24 text-center relative z-10">
-            <div class="flex items-center justify-center gap-2 mb-8 animate-bounce">
-                <div class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <i data-lucide="book-open" class="text-white w-8 h-8"></i>
-                </div>
-                <span class="text-4xl font-black tracking-tight">ICITEBC</span>
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="/" class="nav-logo">
+            <div class="icon">IC</div>
+            <span>ICITEBC</span>
+        </a>
+        <div class="nav-links">
+            <a href="#nosotros">Nosotros</a>
+            <a href="#certificacion">Certificación</a>
+            <a href="#cursos">Cursos</a>
+            <a href="#proceso">Proceso</a>
+            <a href="#contacto">Contacto</a>
+            <a href="/accounts/login/" class="nav-cta">Acceso Alumnos</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="badge-known">
+                <div class="dot"></div>
+                Agente Capacitador Certificado · CONOCER EC217.01
             </div>
-            
-            <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
-                Capacitación Técnica <br><span class="text-blue-400">en Mexicali</span>
+            <h1>
+                Capacitación Técnica<br>
+                <span class="line-accent">Industrial Certificada</span><br>
+                en Baja California
             </h1>
-            <p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Domina la Automatización, IoT con ESP32 y el Diseño 3D Industrial con expertos de Baja California.
+            <p class="hero-sub">
+                Formación técnica 100% práctica con respaldo oficial. Emitimos el Oficio DC3 avalado por la Secretaría del Trabajo ante cada curso completado.
             </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#cursos" class="bg-blue-600 px-10 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-xl shadow-blue-600/30">
-                    <i data-lucide="layout-grid" class="w-5 h-5"></i> Ver Catálogo
+            <div class="hero-btns">
+                <a href="#cursos" class="btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Ver Catálogo de Cursos
                 </a>
-                <a href="/accounts/login/" class="bg-white/10 border border-white/20 px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
-                    <i data-lucide="user" class="w-5 h-5"></i> Acceso Alumnos
+                <a href="#certificacion" class="btn-ghost">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                    Conocer DC3 & CONOCER
                 </a>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-white border-b border-slate-100">
-        <div class="container mx-auto px-4">
-            <p class="text-center text-slate-400 text-sm font-bold uppercase tracking-widest mb-8">Empresas que confían en nosotros</p>
-            <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all">
-                <div class="flex items-center gap-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/CFE_logo.svg/1200px-CFE_logo.svg.png" alt="CFE" class="h-12 object-contain">
-                    <span class="font-bold text-slate-700 text-xl">CFE</span>
+    <!-- STATS BAND -->
+    <div class="stats-band">
+        <div class="stats-inner">
+            <div class="stat-item">
+                <div class="number" data-target="500">0</div>
+                <div class="label">Profesionistas Certificados</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" data-target="12">0</div>
+                <div class="label">Cursos Especializados</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" data-target="8">0</div>
+                <div class="label">Años de Experiencia</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" data-target="100" data-suffix="%">0</div>
+                <div class="label">Oficios DC3 Emitidos</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOSOTROS -->
+    <section id="nosotros" style="padding: 7rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <div class="reveal">
+            <div class="section-label">Sobre Nosotros</div>
+            <div class="section-divider"></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
+                <div>
+                    <h2 class="section-title">
+                        Líderes en tecnología<br>industrial del desierto
+                    </h2>
+                    <p class="section-sub" style="margin-bottom: 1.5rem;">
+                        ICITEBC es el Instituto de Capacitación e Innovación Tecnológica de Baja California, con sede en Mexicali. Desde nuestra fundación, hemos formado a cientos de ingenieros, técnicos y profesionistas que hoy impulsan la industria maquiladora y manufacturera de la región.
+                    </p>
+                    <p class="section-sub">
+                        Somos un <strong style="color: var(--accent);">Agente Capacitador y Evaluador reconocido por CONOCER</strong> bajo el estándar de competencia <strong style="color: white;">EC217.01</strong>, lo que garantiza que cada curso impartido cumple con los estándares nacionales de calidad educativa y competencia laboral.
+                    </p>
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            Formación 100% práctica
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            Instructores certificados
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            Grupos pequeños y personalizados
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            Enfocado en industria de Mexicali
+                        </div>
+                    </div>
                 </div>
-                <div class="text-2xl font-bold text-slate-400">INDUSTRIA BC</div>
-                <div class="text-2xl font-bold text-slate-400">MAQUILA HUB</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="background: rgba(26,86,219,0.1); border: 1px solid rgba(26,86,219,0.25); border-radius: 20px; padding: 2rem; text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏭</div>
+                        <div style="font-family: 'Syne',sans-serif; font-weight: 700; font-size: 0.85rem; color: white; margin-bottom: 0.3rem;">Industria Real</div>
+                        <div style="font-size: 0.78rem; color: var(--muted);">Casos y proyectos reales de la zona industrial</div>
+                    </div>
+                    <div style="background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.2); border-radius: 20px; padding: 2rem; text-align: center; margin-top: 1.5rem;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📋</div>
+                        <div style="font-family: 'Syne',sans-serif; font-weight: 700; font-size: 0.85rem; color: white; margin-bottom: 0.3rem;">Oficio DC3</div>
+                        <div style="font-size: 0.78rem; color: var(--muted);">Constancia oficial ante la STPS</div>
+                    </div>
+                    <div style="background: rgba(245,197,24,0.07); border: 1px solid rgba(245,197,24,0.2); border-radius: 20px; padding: 2rem; text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+                        <div style="font-family: 'Syne',sans-serif; font-weight: 700; font-size: 0.85rem; color: white; margin-bottom: 0.3rem;">EC217.01</div>
+                        <div style="font-size: 0.78rem; color: var(--muted);">Estándar CONOCER vigente</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; text-align: center; margin-top: 1.5rem;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔬</div>
+                        <div style="font-family: 'Syne',sans-serif; font-weight: 700; font-size: 0.85rem; color: white; margin-bottom: 0.3rem;">Laboratorio</div>
+                        <div style="font-size: 0.78rem; color: var(--muted);">Equipos y herramientas industriales</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="cursos" class="container mx-auto px-4 py-24 reveal">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-slate-900 mb-4">Programas de Especialización</h2>
-            <p class="text-slate-500 max-w-xl mx-auto">Formación 100% práctica diseñada para las necesidades reales de la industria en el desierto.</p>
-        </div>
+    <!-- CERTIFICACIÓN CONOCER / DC3 -->
+    <section id="certificacion" style="background: rgba(12,31,63,0.3); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 7rem 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="reveal text-center" style="margin-bottom: 4rem;">
+                <div class="section-label" style="justify-content: center;">Certificación Oficial</div>
+                <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem);">Respaldo Gubernamental en cada curso</h2>
+                <p class="section-sub" style="margin: 0 auto; text-align: center;">
+                    Tus constancias de capacitación tienen valor legal ante el gobierno federal mediante el sistema oficial de la STPS.
+                </p>
+            </div>
 
-        <div class="swiper cursoSwiper pb-12">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-200 m-2 h-full">
-                        <div class="relative h-52">
-                            <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?auto=format&fit=crop&q=80&w=600" alt="Arduino" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl mb-2 text-slate-800">Arduino & Micros</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">Programación de sistemas embebidos y electrónica digital desde las bases.</p>
-                        </div>
+            <!-- DC3 BANNER -->
+            <div class="dc3-banner reveal" style="margin-bottom: 3rem;">
+                <div class="dc3-content">
+                    <h3>¿Qué es el Oficio DC3?</h3>
+                    <p>
+                        El <strong style="color: white;">DC3 — Constancia de Competencias o de Habilidades Laborales</strong> es el documento oficial emitido por la Secretaría del Trabajo y Previsión Social (STPS) que acredita que un trabajador recibió capacitación en una competencia específica. Tiene valor legal en todo México y es requerido en procesos de auditoría laboral, certificaciones ISO y evaluaciones de RH.
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        En ICITEBC <strong style="color: var(--accent);">emitimos el Oficio DC3 ante cada curso que completes</strong>, respaldando tu aprendizaje con un documento oficial que puedes presentar ante cualquier empresa o dependencia de gobierno.
+                    </p>
+                    <div class="dc3-tags">
+                        <span class="dc3-tag">✓ Válido a nivel nacional</span>
+                        <span class="dc3-tag">✓ Ante STPS</span>
+                        <span class="dc3-tag">✓ Valor legal</span>
+                        <span class="dc3-tag">✓ Requerido en auditorías ISO</span>
+                        <span class="dc3-tag">✓ Registro en expediente de RH</span>
                     </div>
                 </div>
-
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-200 m-2 h-full">
-                        <div class="relative h-52">
-                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" alt="IoT" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl mb-2 text-slate-800">IoT Cloud ESP32</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">Conecta proyectos a la nube y controla hardware mediante dashboards remotos.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-200 m-2 h-full">
-                        <div class="relative h-52">
-                            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600" alt="Impresión 3D" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl mb-2 text-slate-800">Impresión 3D</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">Optimización de laminado y mantenimiento para equipos tipo Ender 3.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-200 m-2 h-full">
-                        <div class="relative h-52">
-                            <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a1930?auto=format&fit=crop&q=80&w=600" alt="SolidWorks" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl mb-2 text-slate-800">SolidWorks</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">Modelado paramétrico avanzado y ensambles mecánicos industriales.</p>
-                        </div>
-                    </div>
+                <div class="dc3-stamp">
+                    <div class="big">DC3</div>
+                    <div class="small">Oficio<br>Oficial</div>
                 </div>
             </div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
 
-    <section class="bg-slate-900 py-24 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-            <img src="https://www.transparenttextures.com/patterns/carbon-fibre.png" alt="pattern">
-        </div>
-        <div class="container mx-auto px-4 relative z-10">
-            <h2 class="text-3xl font-bold text-center mb-16 italic text-blue-400">"Liderando la innovación técnica en el desierto"</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-                <div class="bg-slate-800/50 backdrop-blur-md p-10 rounded-3xl border border-slate-700 relative">
-                    <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-blue-500/20"></i>
-                    <p class="text-slate-300 italic leading-relaxed">"La capacitación en SolidWorks superó mis expectativas. Pude aplicar el modelado 3D de inmediato en mis proyectos de manufactura en Mexicali."</p>
-                    <div class="mt-6 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">M</div>
-                        <p class="font-bold text-white text-sm">Ing. en Manufactura Industrial</p>
-                    </div>
+            <!-- CONOCER CARDS -->
+            <div class="conocer-grid reveal">
+                <div class="conocer-card">
+                    <div class="conocer-icon" style="background: rgba(26,86,219,0.15); border: 1px solid rgba(26,86,219,0.3);">🏛️</div>
+                    <h3>¿Qué es CONOCER?</h3>
+                    <p>El Consejo Nacional de Normalización y Certificación de Competencias Laborales (CONOCER) es un organismo de la SEP que certifica las competencias de los trabajadores mexicanos bajo estándares nacionales reconocidos.</p>
                 </div>
+                <div class="conocer-card">
+                    <div class="conocer-icon" style="background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);">🎓</div>
+                    <h3>Somos Agente Capacitador</h3>
+                    <p>ICITEBC está registrado como <strong style="color: white;">Agente Capacitador y Evaluador (ACE)</strong> ante CONOCER. Esto significa que nuestros cursos están evaluados y aprobados por el gobierno federal para emitir constancias con validez oficial.</p>
                 </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="py-24 bg-slate-50">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <div class="bg-white rounded-[3rem] p-8 md:p-16 shadow-2xl border border-slate-100 reveal">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl font-black text-slate-900 mb-4">¿Listo para empezar?</h2>
-                    <p class="text-slate-500">Un experto de ICITEBC te contactará para resolver tus dudas.</p>
+                <div class="conocer-card">
+                    <div class="conocer-icon" style="background: rgba(245,197,24,0.08); border: 1px solid rgba(245,197,24,0.2);">📌</div>
+                    <h3>Estándar EC217.01</h3>
+                    <p>El estándar <strong style="color: white;">EC217.01</strong> es el estándar de competencia laboral aplicable a nuestros cursos bajo la norma CONOCER. Define los criterios, evidencias y procedimientos que seguimos para garantizar una formación de calidad comprobable.</p>
                 </div>
-                
-                <form action="/" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {% csrf_token %}
-                    <div class="space-y-2">
-                        <label class="text-xs font-black uppercase text-slate-400 ml-1">Nombre</label>
-                        <input type="text" name="nombre" required class="w-full p-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-500 outline-none transition shadow-inner">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-black uppercase text-slate-400 ml-1">Correo</label>
-                        <input type="email" name="email" required class="w-full p-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-500 outline-none transition shadow-inner">
-                    </div>
-                    <div class="md:col-span-2 space-y-2">
-                        <label class="text-xs font-black uppercase text-slate-400 ml-1">Mensaje</label>
-                        <textarea name="mensaje" required rows="4" class="w-full p-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-500 outline-none transition shadow-inner"></textarea>
-                    </div>
-                    <button type="submit" class="md:col-span-2 bg-blue-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-blue-700 hover:scale-[1.02] transition-all shadow-lg shadow-blue-200 uppercase tracking-widest">
-                        Enviar Información
-                    </button>
-                </form>
+                <div class="conocer-card">
+                    <div class="conocer-icon" style="background: rgba(26,86,219,0.15); border: 1px solid rgba(26,86,219,0.3);">⚡</div>
+                    <h3>¿Para qué sirve a tu empresa?</h3>
+                    <p>Si eres empresa, la capacitación con nosotros puede ser <strong style="color: white;">deducible de impuestos</strong>. Los oficios DC3 demuestran cumplimiento ante la STPS en materia de capacitación obligatoria establecida en la LFT (Art. 153).</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-16 text-center text-slate-500 text-sm bg-white border-t border-slate-200">
-        <div class="flex flex-col items-center gap-4">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg gradient-navy flex items-center justify-center text-white font-bold">I</div>
-                <span class="font-bold text-slate-800 tracking-tighter">ICITEBC MEXICALI</span>
+    <!-- CURSOS -->
+    <section id="cursos" style="padding: 7rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <div class="reveal" style="margin-bottom: 3.5rem; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: gap 1rem;">
+            <div>
+                <div class="section-label">Programas</div>
+                <h2 class="section-title">Catálogo de Especialización</h2>
+                <p class="section-sub">Cada curso incluye el Oficio DC3. Formación práctica e industrial.</p>
             </div>
-            <p class="max-w-xs mx-auto">Calzada Anáhuac, Mexicali, Baja California. <br>Especialistas en tecnología industrial.</p>
+        </div>
+
+        <div class="cursos-grid">
+            <!-- Arduino -->
+            <div class="curso-card reveal reveal-delay-1">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?auto=format&fit=crop&q=80&w=600" alt="Arduino" class="curso-img">
+                    <div class="curso-overlay"></div>
+                </div>
+                <div class="curso-body">
+                    <div class="curso-tag">Electrónica</div>
+                    <h3>Arduino & Microcontroladores</h3>
+                    <p>Programación de sistemas embebidos, electrónica digital y sensores industriales desde cero hasta nivel avanzado.</p>
+                </div>
+                <div class="curso-footer">
+                    <div class="curso-dc3"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+
+            <!-- IoT ESP32 -->
+            <div class="curso-card reveal reveal-delay-2">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" alt="IoT" class="curso-img">
+                    <div class="curso-overlay"></div>
+                </div>
+                <div class="curso-body">
+                    <div class="curso-tag">IoT / Cloud</div>
+                    <h3>IoT Cloud con ESP32</h3>
+                    <p>Conecta proyectos a plataformas cloud (AWS, Google IoT, Blynk). Control remoto, dashboards y monitoreo en tiempo real.</p>
+                </div>
+                <div class="curso-footer">
+                    <div class="curso-dc3"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+
+            <!-- Impresión 3D -->
+            <div class="curso-card reveal reveal-delay-3">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600" alt="Impresión 3D" class="curso-img">
+                    <div class="curso-overlay"></div>
+                </div>
+                <div class="curso-body">
+                    <div class="curso-tag">Manufactura Aditiva</div>
+                    <h3>Impresión 3D Industrial</h3>
+                    <p>Laminado avanzado, optimización de impresiones y mantenimiento preventivo para equipos FDM tipo Ender 3, Prusa y Creality.</p>
+                </div>
+                <div class="curso-footer">
+                    <div class="curso-dc3"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+
+            <!-- SolidWorks -->
+            <div class="curso-card reveal reveal-delay-4">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a1930?auto=format&fit=crop&q=80&w=600" alt="SolidWorks" class="curso-img">
+                    <div class="curso-overlay"></div>
+                </div>
+                <div class="curso-body">
+                    <div class="curso-tag">Diseño CAD</div>
+                    <h3>SolidWorks</h3>
+                    <p>Modelado paramétrico 3D, ensambles mecánicos complejos, simulación de esfuerzos y generación de planos industriales.</p>
+                </div>
+                <div class="curso-footer">
+                    <div class="curso-dc3"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+
+            <!-- PLC -->
+            <div class="curso-card reveal reveal-delay-1">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&q=80&w=600" alt="PLC" class="curso-img">
+                    <div class="curso-overlay"></div>
+                </div>
+                <div class="curso-body">
+                    <div class="curso-tag">Automatización</div>
+                    <h3>Programación PLC</h3>
+                    <p>Automatización industrial con controladores Siemens y Allen Bradley. Ladder, FBD y programación de HMI para líneas de producción.</p>
+                </div>
+                <div class="curso-footer">
+                    <div class="curso-dc3"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+
+            <!-- AutoCAD -->
+            <div class="curso-card reveal reveal-delay-2">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600" alt="AutoCAD" class="curso-img">
+                    <div class="curso-overlay"></div>
+                </div>
+                <div class="curso-body">
+                    <div class="curso-tag">Diseño Técnico</div>
+                    <h3>AutoCAD Industrial</h3>
+                    <p>Elaboración de planos técnicos 2D y 3D, normalización de dibujo industrial, isométricos eléctricos y planos de planta.</p>
+                </div>
+                <div class="curso-footer">
+                    <div class="curso-dc3"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section id="proceso" style="background: rgba(12,31,63,0.3); border-top: 1px solid rgba(255,255,255,0.05); padding: 7rem 2rem;">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
+                <div class="section-label" style="justify-content: center;">Cómo Funciona</div>
+                <h2 class="section-title">De la inscripción a tu DC3</h2>
+            </div>
+            <div class="proceso-steps reveal">
+                <div class="paso">
+                    <div class="paso-num">01</div>
+                    <h4>Inscripción</h4>
+                    <p>Contacta con nosotros, elige tu curso y confirma tu lugar con documentación básica.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-num">02</div>
+                    <h4>Formación Práctica</h4>
+                    <p>Toma el curso con instructores certificados en instalaciones equipadas para la industria.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-num">03</div>
+                    <h4>Evaluación</h4>
+                    <p>Demostración de competencias adquiridas bajo los criterios del estándar EC217.01 CONOCER.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-num">04</div>
+                    <h4>Emisión DC3</h4>
+                    <p>Recibe tu Oficio DC3 oficial firmado y registrado ante la STPS con valor a nivel nacional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section style="padding: 7rem 2rem; max-width: 1100px; margin: 0 auto;">
+        <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
+            <div class="section-label" style="justify-content: center;">Testimoniales</div>
+            <h2 class="section-title">Lo que dicen nuestros alumnos</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;" class="reveal">
+            <div class="testimonial-card">
+                <p>"La capacitación en SolidWorks superó mis expectativas. Los instructores conocen la realidad industrial de Mexicali y aplican casos de manufactura reales. El DC3 me abrió puertas en dos maquiladoras del parque industrial."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JR</div>
+                    <div>
+                        <div class="author-name">José Ramírez</div>
+                        <div class="author-role">Ing. Manufactura Industrial · Mexicali</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"Como empresa, la capacitación de nuestro equipo técnico con ICITEBC fue una inversión que se ve en la productividad. El proceso de obtener los DC3 fue rápido y sin complicaciones. 100% recomendable."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AL</div>
+                    <div>
+                        <div class="author-name">Ana Leyva</div>
+                        <div class="author-role">Gerente de RH · Empresa Maquiladora BC</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"El curso de IoT con ESP32 fue excelente. En semanas ya tenía un sistema de monitoreo funcionando en mi área de trabajo. El material es de primer nivel y el Oficio DC3 fue un bono que no esperaba."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">CR</div>
+                    <div>
+                        <div class="author-name">Carlos Rentería</div>
+                        <div class="author-role">Técnico en Automatización · Tecate BC</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" style="padding: 7rem 2rem 4rem; max-width: 900px; margin: 0 auto;">
+        <div class="contact-wrap reveal">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <div class="section-label" style="justify-content: center;">Contacto</div>
+                <h2 class="section-title">¿Listo para certificarte?</h2>
+                <p class="section-sub" style="text-align: center; margin: 0 auto;">
+                    Cuéntanos qué necesitas. Un especialista de ICITEBC te contactará para orientarte sobre el curso y proceso de DC3 ideal para ti o tu empresa.
+                </p>
+            </div>
+
+            <form action="/" method="POST" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                {% csrf_token %}
+                <div>
+                    <label class="input-label">Nombre completo</label>
+                    <input type="text" name="nombre" required placeholder="Ej. Juan García" class="input-field">
+                </div>
+                <div>
+                    <label class="input-label">Correo electrónico</label>
+                    <input type="email" name="email" required placeholder="tu@correo.com" class="input-field">
+                </div>
+                <div>
+                    <label class="input-label">Teléfono (opcional)</label>
+                    <input type="tel" name="telefono" placeholder="686 000 0000" class="input-field">
+                </div>
+                <div>
+                    <label class="input-label">Curso de interés</label>
+                    <select name="curso" class="input-field">
+                        <option value="" disabled selected style="background: var(--navy-mid);">Seleccionar curso...</option>
+                        <option value="arduino" style="background: var(--navy-mid);">Arduino & Microcontroladores</option>
+                        <option value="iot" style="background: var(--navy-mid);">IoT Cloud con ESP32</option>
+                        <option value="impresion3d" style="background: var(--navy-mid);">Impresión 3D Industrial</option>
+                        <option value="solidworks" style="background: var(--navy-mid);">SolidWorks</option>
+                        <option value="plc" style="background: var(--navy-mid);">Programación PLC</option>
+                        <option value="autocad" style="background: var(--navy-mid);">AutoCAD Industrial</option>
+                        <option value="otro" style="background: var(--navy-mid);">Otro / No sé aún</option>
+                    </select>
+                </div>
+                <div style="grid-column: 1/-1;">
+                    <label class="input-label">Mensaje</label>
+                    <textarea name="mensaje" required rows="4" placeholder="Cuéntanos sobre tu necesidad o la de tu empresa..." class="input-field" style="resize: vertical;"></textarea>
+                </div>
+                <div style="grid-column: 1/-1;">
+                    <button type="submit" class="submit-btn">Solicitar Información sobre DC3 y Cursos</button>
+                </div>
+            </form>
+
+            <!-- Info adicional -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07);">
+                <div style="display: flex; align-items: flex-start; gap: 12px;">
+                    <div style="width: 36px; height: 36px; background: rgba(0,212,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem;">📍</div>
+                    <div>
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px;">Ubicación</div>
+                        <div style="font-size: 0.88rem; color: var(--text);">Calzada Anáhuac, Mexicali,<br>Baja California</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 12px;">
+                    <div style="width: 36px; height: 36px; background: rgba(0,212,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem;">🏛️</div>
+                    <div>
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px;">Registro Oficial</div>
+                        <div style="font-size: 0.88rem; color: var(--text);">Agente Capacitador CONOCER<br>EC217.01</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 12px;">
+                    <div style="width: 36px; height: 36px; background: rgba(0,212,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem;">📋</div>
+                    <div>
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px;">Constancias</div>
+                        <div style="font-size: 0.88rem; color: var(--text);">Oficio DC3 incluido en<br>todos los cursos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">IC ICITEBC</div>
+            <div class="footer-links">
+                <a href="#nosotros">Nosotros</a>
+                <a href="#certificacion">Certificación DC3</a>
+                <a href="#cursos">Cursos</a>
+                <a href="#proceso">Proceso</a>
+                <a href="#contacto">Contacto</a>
+                <a href="/accounts/login/">Acceso Alumnos</a>
+            </div>
+            <p>
+                Instituto de Capacitación e Innovación Tecnológica de Baja California<br>
+                Agente Capacitador y Evaluador reconocido por CONOCER · Estándar EC217.01<br>
+                Emitimos Oficio DC3 ante la STPS en todos nuestros cursos<br><br>
+                Calzada Anáhuac, Mexicali, Baja California, México<br>
+                <span style="color: rgba(255,255,255,0.2);">© 2025 ICITEBC · Todos los derechos reservados</span>
+            </p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        lucide.createIcons();
-
-        // Inicializar Carrusel
-        const swiper = new Swiper('.cursoSwiper', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            breakpoints: {
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-                1280: { slidesPerView: 4 },
-            },
-            autoplay: { delay: 3000 },
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Animación de Reveal al hacer Scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
+        // Mobile menu
+        function toggleMenu() {
+            const links = document.querySelector('.nav-links');
+            links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+            links.style.flexDirection = 'column';
+            links.style.position = 'absolute';
+            links.style.top = '100%';
+            links.style.left = '0';
+            links.style.right = '0';
+            links.style.background = 'rgba(5,13,26,0.98)';
+            links.style.padding = '1.5rem 2rem';
+            links.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
         }
-        window.addEventListener("scroll", reveal);
+
+        // Reveal on scroll
+        function revealOnScroll() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Run on load
+
+        // Counter animation
+        function animateCounters() {
+            document.querySelectorAll('.number[data-target]').forEach(el => {
+                const target = parseInt(el.dataset.target);
+                const suffix = el.dataset.suffix || '+';
+                let current = 0;
+                const duration = 2000;
+                const step = target / (duration / 16);
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        el.textContent = target + suffix;
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = Math.floor(current) + suffix;
+                    }
+                }, 16);
+            });
+        }
+
+        // Trigger counter when stats band is visible
+        const statsBand = document.querySelector('.stats-band');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        if (statsBand) observer.observe(statsBand);
     </script>
 </body>
 </html>
