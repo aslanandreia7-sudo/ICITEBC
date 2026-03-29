@@ -32,25 +32,22 @@
 
         {% for modulo in modulos %}
         <div class="mb-4">
-            <p class="font-semibold text-slate-800 text-sm mb-1">📦 {{ modulo.titulo }}</p>
+            <p class="font-semibold text-slate-800 text-sm mb-2">📦 {{ modulo.titulo }}</p>
             {% for seccion in modulo.secciones.all %}
-            <div class="ml-3 mb-2">
+            <div class="ml-3 mb-3">
                 <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">{{ seccion.titulo }}</p>
                 {% for clase in seccion.clases.all %}
-                <div class="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-slate-50 cursor-pointer clase-item {% if clase.id in completadas_ids %}bg-green-50{% endif %}"
-                     data-clase-id="{{ clase.id }}"
-                     oonclick="cargarClase(
-    {{ clase.id }},
-    '{{ clase.tipo }}',
-    '{{ clase.video_url|default:'' }}',
-    '{% if clase.video_archivo %}{{ clase.video_archivo.url }}{% endif %}',
-    '{% if clase.pdf_archivo %}{{ clase.pdf_archivo.url }}{% endif %}',
-    `{{ clase.texto|escapejs|default:'' }}`,
-    '{{ clase.titulo }}'
-)" }}', `{{ clase.texto|escapejs|default:'' }}`, '{{ clase.titulo }}')">
-                    <span class="clase-check text-base">
-                        {% if clase.id in completadas_ids %}✅{% else %}⬜{% endif %}
-                    </span>
+                {# Guardamos los datos en atributos data-* para evitar conflictos de comillas #}
+                <div class="clase-item flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-slate-50 cursor-pointer {% if clase.id in completadas_ids %}bg-green-50{% endif %}"
+                     data-id="{{ clase.id }}"
+                     data-tipo="{{ clase.tipo }}"
+                     data-video-url="{{ clase.video_url|default:'' }}"
+                     data-video-archivo="{% if clase.video_archivo %}{{ clase.video_archivo.url }}{% endif %}"
+                     data-pdf="{% if clase.pdf_archivo %}{{ clase.pdf_archivo.url }}{% endif %}"
+                     data-titulo="{{ clase.titulo }}"
+                     data-texto="{{ clase.texto|default:''|escapejs }}"
+                     onclick="cargarClase(this)">
+                    <span class="clase-check text-base">{% if clase.id in completadas_ids %}✅{% else %}⬜{% endif %}</span>
                     <span class="text-sm text-slate-700">{{ clase.titulo }}</span>
                     <span class="ml-auto text-xs text-slate-400">
                         {% if clase.tipo == 'video_url' or clase.tipo == 'video_archivo' %}🎬
@@ -87,48 +84,95 @@
 <script>
 let claseActivaId = null;
 
-function cargarClase(id, tipo, videoUrl, videoArchivo, pdfUrl, texto, titulo) {
+// Ahora recibe el elemento y lee los data-* — sin problemas de comillas
+function cargarClase(el) {
+    const id           = el.dataset.id;
+    const tipo         = el.dataset.tipo;
+    const videoUrl     = el.dataset.videoUrl     || '';
+    const videoArchivo = el.dataset.videoArchivo || '';
+    const pdfUrl       = el.dataset.pdf          || '';
+    const texto        = el.dataset.texto        || '';
+    const titulo       = el.dataset.titulo       || '';
+
     claseActivaId = id;
     const visor = document.getElementById('visor');
-    let html = `<h2 class="font-bold text-slate-800 text-lg mb-4 self-start">${titulo}</h2>`;
+    let html = `<h2 class="font-bold text-slate-800 text-lg mb-4 self-start w-full">${titulo}</h2>`;
 
     if (tipo === 'video_url' && videoUrl) {
-        // Convertir URL de YouTube a embed
-        let src = videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'www.youtube.com/embed/');
-        html += `<div class="w-full aspect-video"><iframe src="${src}" class="w-full h-full rounded-xl" allowfullscreen></iframe></div>`;
+        // Soporta YouTube watch, youtu.be y URLs directas
+        let src = videoUrl
+            .replace('watch?v=', 'embed/')
+            .replace('youtu.be/', 'www.youtube.com/embed/');
+        // Asegurarse de que tenga el dominio correcto
+        if (!src.includes('youtube.com/embed') && !src.startsWith('http')) {
+            src = 'https://www.youtube.com/embed/' + src;
+        }
+        html += `<div class="w-full aspect-video">
+                    <iframe src="${src}" class="w-full h-full rounded-xl" allowfullscreen
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                 </div>`;
+
     } else if (tipo === 'video_archivo' && videoArchivo) {
-        html += `<video controls class="w-full rounded-xl"><source src="${videoArchivo}"></video>`;
+        html += `<video controls class="w-full rounded-xl">
+                    <source src="${videoArchivo}">
+                    Tu navegador no soporta este formato de video.
+                 </video>`;
+
     } else if (tipo === 'pdf' && pdfUrl) {
-        html += `<iframe src="${pdfUrl}" class="w-full h-96 rounded-xl border"></iframe>
-                 <a href="${pdfUrl}" target="_blank" class="mt-3 text-blue-600 text-sm underline self-start">Abrir PDF en nueva pestaña</a>`;
+        html += `<iframe src="${pdfUrl}" class="w-full rounded-xl border" style="height:500px;"></iframe>
+                 <a href="${pdfUrl}" target="_blank"
+                    class="mt-3 inline-block text-blue-600 text-sm underline self-start">
+                    📥 Abrir PDF en nueva pestaña
+                 </a>`;
+
     } else if (tipo === 'texto' && texto) {
-        html += `<div class="prose max-w-none text-slate-700 self-start">${texto}</div>`;
+        html += `<div class="prose max-w-none text-slate-700 self-start w-full leading-relaxed">${texto}</div>`;
+
+    } else {
+        html += `<p class="text-slate-400 text-sm self-start">Esta clase no tiene contenido todavía.</p>`;
     }
 
     visor.innerHTML = html;
     visor.classList.remove('items-center', 'justify-center');
     visor.classList.add('items-start');
 
-    // Actualizar botón
-    document.getElementById('btn-completar-wrap').classList.remove('hidden');
-    const completada = document.querySelector(`.clase-item[data-clase-id="${id}"]`)?.classList.contains('bg-green-50');
+    // Resaltar clase activa en el temario
+    document.querySelectorAll('.clase-item').forEach(i => i.classList.remove('ring-2', 'ring-blue-400'));
+    el.classList.add('ring-2', 'ring-blue-400');
+
+    // Actualizar botón marcar
+    const wrap = document.getElementById('btn-completar-wrap');
+    wrap.classList.remove('hidden');
+    const completada = el.classList.contains('bg-green-50');
+    actualizarBoton(completada);
+}
+
+function actualizarBoton(completada) {
     const btn = document.getElementById('btn-completar');
-    btn.textContent = completada ? 'Desmarcar clase ⬜' : 'Marcar como completada ✅';
-    btn.className = completada
-        ? 'bg-slate-200 text-slate-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-300 transition text-sm'
-        : 'bg-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-blue-700 transition text-sm';
+    if (completada) {
+        btn.textContent = 'Desmarcar clase ⬜';
+        btn.className = 'bg-slate-200 text-slate-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-300 transition text-sm';
+    } else {
+        btn.textContent = 'Marcar como completada ✅';
+        btn.className = 'bg-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-blue-700 transition text-sm';
+    }
 }
 
 function marcarClase() {
     if (!claseActivaId) return;
     fetch(`/clase/${claseActivaId}/marcar/`, {
         method: 'POST',
-        headers: { 'X-CSRFToken': '{{ csrf_token }}', 'Content-Type': 'application/json' }
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        }
     })
     .then(r => r.json())
     .then(data => {
-        const item = document.querySelector(`.clase-item[data-clase-id="${claseActivaId}"]`);
+        const item  = document.querySelector(`.clase-item[data-id="${claseActivaId}"]`);
         const check = item.querySelector('.clase-check');
+
         if (data.completada) {
             item.classList.add('bg-green-50');
             check.textContent = '✅';
@@ -136,17 +180,15 @@ function marcarClase() {
             item.classList.remove('bg-green-50');
             check.textContent = '⬜';
         }
+
         // Actualizar barra de progreso
         document.getElementById('progreso-num').textContent = data.progreso_total;
         document.getElementById('progreso-lbl').textContent = data.progreso_total + '%';
         document.getElementById('barra-progreso').style.width = data.progreso_total + '%';
-        // Actualizar botón
-        const btn = document.getElementById('btn-completar');
-        btn.textContent = data.completada ? 'Desmarcar clase ⬜' : 'Marcar como completada ✅';
-        btn.className = data.completada
-            ? 'bg-slate-200 text-slate-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-300 transition text-sm'
-            : 'bg-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-blue-700 transition text-sm';
-    });
+
+        actualizarBoton(data.completada);
+    })
+    .catch(err => console.error('Error al marcar clase:', err));
 }
 </script>
 </body>
