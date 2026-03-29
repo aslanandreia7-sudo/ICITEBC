@@ -294,20 +294,103 @@
         .cc h3 { font-size:.95rem; font-weight:600; color:#fff; margin-bottom:.55rem; }
         .cc p  { font-size:.83rem; color:var(--muted); line-height:1.7; }
 
-        /* ── CURSOS ── */
-        .cursos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:1.4rem; }
-        .curso-card { background:var(--navy-card); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:all .4s cubic-bezier(.16,1,.3,1); }
-        .curso-card:hover { transform:translateY(-5px); border-color:rgba(0,200,240,.22); box-shadow:0 24px 48px rgba(0,0,0,.4); }
-        .curso-img-wrap { position:relative; }
-        .curso-img { width:100%; height:185px; object-fit:cover; display:block; }
-        .curso-img-wrap::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,rgba(4,16,30,.95) 100%); }
-        .curso-body { padding:1.4rem; }
+        /* ── CURSOS / CARRUSEL ── */
+        .curso-card {
+            background: var(--navy-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all .4s cubic-bezier(.16,1,.3,1);
+            flex: 0 0 300px; /* ancho fijo estandarizado */
+        }
+        .curso-card:hover { transform: translateY(-5px); border-color: rgba(0,200,240,.22); box-shadow: 0 24px 48px rgba(0,0,0,.4); }
+
+        /* Imagen siempre 16:9, mismo tamaño */
+        .curso-img-wrap {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #081728;
+            position: relative;
+        }
+        .curso-img-wrap::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(4,16,30,.95) 100%);
+        }
+        .curso-img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform .4s ease;
+        }
+        .curso-card:hover .curso-img { transform: scale(1.04); }
+        .curso-img-placeholder {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--blue), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem;
+        }
+        .curso-body { padding: 1.4rem; }
         .curso-cat { display:inline-block; background:rgba(29,95,212,.2); border:1px solid rgba(29,95,212,.35); color:var(--blue-lt); padding:.18rem .7rem; border-radius:100px; font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.75rem; }
         .curso-body h3 { font-size:1rem; font-weight:600; color:#fff; margin-bottom:.45rem; }
         .curso-body p  { font-size:.82rem; color:var(--muted); line-height:1.65; }
         .curso-foot { display:flex; align-items:center; justify-content:space-between; padding:.9rem 1.4rem; border-top:1px solid var(--border); }
         .dc3-badge { display:flex; align-items:center; gap:6px; font-size:.7rem; font-weight:600; color:var(--accent); letter-spacing:.04em; }
         .dc3-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; flex-shrink:0; }
+
+        /* Carrusel contenedor */
+        .carrusel-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 0 0 1rem;
+        }
+        .carrusel-track {
+            display: flex;
+            gap: 1.4rem;
+            transition: transform .45s cubic-bezier(.16,1,.3,1);
+            will-change: transform;
+            cursor: grab;
+            user-select: none;
+        }
+        .carrusel-track:active { cursor: grabbing; }
+
+        /* Botones de navegación */
+        .carrusel-btn {
+            position: absolute;
+            top: 42%; transform: translateY(-50%);
+            z-index: 10;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(8,23,40,.92);
+            border: 1px solid rgba(255,255,255,.14);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all .25s;
+            backdrop-filter: blur(8px);
+        }
+        .carrusel-btn:hover { background: var(--blue); border-color: var(--blue); transform: translateY(-50%) scale(1.08); }
+        .carrusel-btn:disabled { opacity: .2; cursor: default; pointer-events: none; }
+        .carrusel-prev { left: -18px; }
+        .carrusel-next { right: -18px; }
+
+        /* Dots indicadores */
+        .carrusel-dots {
+            display: flex; justify-content: center; gap: 7px;
+            margin-top: 1.8rem;
+        }
+        .carrusel-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(255,255,255,.18);
+            border: none; cursor: pointer;
+            transition: all .3s; padding: 0;
+        }
+        .carrusel-dot.active { background: var(--accent); width: 22px; border-radius: 4px; }
+
+        @media(max-width:600px){
+            .carrusel-prev { left: -6px; }
+            .carrusel-next { right: -6px; }
+            .curso-card { flex: 0 0 260px; }
+        }
 
         /* ── PROCESO ── */
         .proceso-bg { background:rgba(8,23,40,.4); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -533,40 +616,50 @@
         <div class="reveal" style="margin-bottom:3rem;">
             <div class="sec-label">Programas</div>
             <h2 class="sec-title">Catálogo de Especialización</h2>
-            <p class="sec-sub">Cada curso incluye el Oficio DC3. Formación práctica orientada a la industria real.</p>
+            <p class="sec-sub">Cada curso incluye el Oficio DC3. Formación práctica orientada a la industria real.
+                <br><small style="color:rgba(122,149,187,.5);font-size:.75rem;">📐 Imagen recomendada: 600 × 340 px (16:9)</small>
+            </p>
         </div>
-        <div class="cursos-grid">
-            <div class="curso-card reveal d1">
-                <div class="curso-img-wrap"><img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?auto=format&fit=crop&q=80&w=600" alt="Arduino" class="curso-img"></div>
-                <div class="curso-body"><div class="curso-cat">Electrónica</div><h3>Arduino & Microcontroladores</h3><p>Programación de sistemas embebidos, electrónica digital y sensores industriales desde nivel básico hasta avanzado.</p></div>
-                <div class="curso-foot"><div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            </div>
-            <div class="curso-card reveal d2">
-                <div class="curso-img-wrap"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" alt="IoT" class="curso-img"></div>
-                <div class="curso-body"><div class="curso-cat">IoT / Cloud</div><h3>IoT Cloud con ESP32</h3><p>Conecta proyectos a AWS, Google IoT y Blynk. Control remoto, dashboards y monitoreo industrial en tiempo real.</p></div>
-                <div class="curso-foot"><div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            </div>
-            <div class="curso-card reveal d3">
-                <div class="curso-img-wrap"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600" alt="3D" class="curso-img"></div>
-                <div class="curso-body"><div class="curso-cat">Manufactura Aditiva</div><h3>Impresión 3D Industrial</h3><p>Laminado avanzado, optimización de impresiones y mantenimiento para equipos FDM tipo Ender 3, Prusa y Creality.</p></div>
-                <div class="curso-foot"><div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            </div>
-            <div class="curso-card reveal d4">
-                <div class="curso-img-wrap"><img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a1930?auto=format&fit=crop&q=80&w=600" alt="SolidWorks" class="curso-img"></div>
-                <div class="curso-body"><div class="curso-cat">Diseño CAD</div><h3>SolidWorks</h3><p>Modelado paramétrico 3D, ensambles mecánicos complejos, simulación de esfuerzos y planos industriales.</p></div>
-                <div class="curso-foot"><div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            </div>
-            <div class="curso-card reveal d1">
-                <div class="curso-img-wrap"><img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&q=80&w=600" alt="PLC" class="curso-img"></div>
-                <div class="curso-body"><div class="curso-cat">Automatización</div><h3>Programación PLC</h3><p>Automatización industrial con Siemens y Allen Bradley. Ladder, FBD y programación de HMI para líneas de producción.</p></div>
-                <div class="curso-foot"><div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            </div>
-            <div class="curso-card reveal d2">
-                <div class="curso-img-wrap"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600" alt="AutoCAD" class="curso-img"></div>
-                <div class="curso-body"><div class="curso-cat">Diseño Técnico</div><h3>AutoCAD Industrial</h3><p>Planos técnicos 2D y 3D, normalización de dibujo industrial, isométricos eléctricos y planos de planta.</p></div>
-                <div class="curso-foot"><div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+        <!-- Carrusel -->
+        <div class="carrusel-wrapper reveal">
+            <button class="carrusel-btn carrusel-prev" id="btnPrev" onclick="moverCarrusel(-1)" aria-label="Anterior">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="carrusel-btn carrusel-next" id="btnNext" onclick="moverCarrusel(1)" aria-label="Siguiente">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+
+            <div class="carrusel-track" id="carruselTrack">
+                {% for curso in cursos %}
+                <div class="curso-card">
+                    <div class="curso-img-wrap">
+                        {% if curso.imagen %}
+                            <img src="{{ curso.imagen.url }}" alt="{{ curso.titulo }}" class="curso-img">
+                        {% else %}
+                            <div class="curso-img-placeholder">🎓</div>
+                        {% endif %}
+                    </div>
+                    <div class="curso-body">
+                        {% if curso.categoria %}
+                            <div class="curso-cat">{{ curso.categoria }}</div>
+                        {% endif %}
+                        <h3>{{ curso.titulo }}</h3>
+                        <p>{{ curso.descripcion_corta|default:curso.descripcion|truncatechars:110 }}</p>
+                    </div>
+                    <div class="curso-foot">
+                        <div class="dc3-badge"><div class="dc3-dot"></div>Incluye Oficio DC3</div>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+                {% empty %}
+                <p style="color:var(--muted);padding:2rem 0;">Próximamente nuevos cursos disponibles.</p>
+                {% endfor %}
             </div>
         </div>
+
+        <!-- Dots -->
+        <div class="carrusel-dots" id="carruselDots"></div>
     </div>
 </section>
 
@@ -626,15 +719,12 @@
                 <div><label class="f-label">Teléfono (opcional)</label><input type="tel" name="telefono" placeholder="686 000 0000" class="f-input"></div>
                 <div>
                     <label class="f-label">Curso de interés</label>
-                    <select name="curso" class="f-input" style="cursor:pointer;">
+                    <select name="curso_interes" class="f-input" style="cursor:pointer;">
                         <option value="" disabled selected style="background:var(--navy-mid);">Seleccionar...</option>
-                        <option value="arduino"    style="background:var(--navy-mid);">Arduino & Microcontroladores</option>
-                        <option value="iot"        style="background:var(--navy-mid);">IoT Cloud con ESP32</option>
-                        <option value="3d"         style="background:var(--navy-mid);">Impresión 3D Industrial</option>
-                        <option value="solidworks" style="background:var(--navy-mid);">SolidWorks</option>
-                        <option value="plc"        style="background:var(--navy-mid);">Programación PLC</option>
-                        <option value="autocad"    style="background:var(--navy-mid);">AutoCAD Industrial</option>
-                        <option value="otro"       style="background:var(--navy-mid);">Otro / No sé aún</option>
+                        {% for curso in cursos %}
+                        <option value="{{ curso.slug }}" style="background:var(--navy-mid);">{{ curso.titulo }}</option>
+                        {% endfor %}
+                        <option value="otro" style="background:var(--navy-mid);">Otro / No sé aún</option>
                     </select>
                 </div>
                 <div style="grid-column:1/-1;"><label class="f-label">Mensaje</label><textarea name="mensaje" required rows="4" placeholder="Cuéntanos sobre tu necesidad o la de tu empresa..." class="f-input" style="resize:vertical;"></textarea></div>
@@ -686,7 +776,6 @@
         hamb.classList.remove('open');
         document.body.style.overflow = '';
     }
-    /* Close on Escape */
     document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 
     /* Scroll reveal */
@@ -716,6 +805,73 @@
     new IntersectionObserver((entries, obs) => {
         entries.forEach(e => { if(e.isIntersecting){ runCounters(); obs.disconnect(); }});
     }, { threshold: .3 }).observe(document.querySelector('.stats-band'));
+
+    /* ── CARRUSEL DE CURSOS ── */
+    (function(){
+        const track   = document.getElementById('carruselTrack');
+        const dotsEl  = document.getElementById('carruselDots');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        if (!track) return;
+
+        const cards = Array.from(track.querySelectorAll('.curso-card'));
+        if (cards.length === 0) return;
+
+        let current = 0;
+
+        const gap       = () => 22; // px — igual que el gap en CSS
+        const cardW     = () => cards[0].offsetWidth + gap();
+        const visibles  = () => Math.max(1, Math.floor((track.parentElement.offsetWidth) / cardW()));
+        const maxIndex  = () => Math.max(0, cards.length - visibles());
+
+        /* Construir dots */
+        function buildDots(){
+            dotsEl.innerHTML = '';
+            const total = maxIndex() + 1;
+            for (let i = 0; i < total; i++){
+                const d = document.createElement('button');
+                d.className = 'carrusel-dot' + (i === current ? ' active' : '');
+                d.setAttribute('aria-label', 'Ir a posición ' + (i+1));
+                d.addEventListener('click', () => goTo(i));
+                dotsEl.appendChild(d);
+            }
+        }
+
+        function goTo(idx){
+            current = Math.max(0, Math.min(idx, maxIndex()));
+            track.style.transform = `translateX(-${current * cardW()}px)`;
+            dotsEl.querySelectorAll('.carrusel-dot').forEach((d,i) => d.classList.toggle('active', i === current));
+            btnPrev.disabled = current === 0;
+            btnNext.disabled = current >= maxIndex();
+        }
+
+        window.moverCarrusel = (dir) => goTo(current + dir);
+
+        /* Swipe táctil */
+        let startX = 0;
+        track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+        track.addEventListener('touchend',   e => {
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+        });
+
+        /* Drag mouse */
+        let dragging = false, dragStartX = 0;
+        track.addEventListener('mousedown',  e => { dragging = true; dragStartX = e.clientX; track.style.transition = 'none'; });
+        track.addEventListener('mousemove',  e => { if (!dragging) return; });
+        track.addEventListener('mouseup',    e => {
+            if (!dragging) return; dragging = false;
+            track.style.transition = '';
+            const dx = e.clientX - dragStartX;
+            if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+            else goTo(current); // snap de regreso
+        });
+        track.addEventListener('mouseleave', e => { if (dragging){ dragging = false; track.style.transition=''; goTo(current); } });
+
+        buildDots();
+        goTo(0);
+        window.addEventListener('resize', () => { buildDots(); goTo(Math.min(current, maxIndex())); });
+    })();
 </script>
 </body>
 </html>
