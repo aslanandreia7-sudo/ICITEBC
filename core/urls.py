@@ -15,13 +15,16 @@ urlpatterns = [
     # 3. Dashboard del Alumno (Privado)
     path('dashboard/', views.dashboard, name='dashboard'),
 
-    # 4. ✅ NUEVO — Detalle de curso
+    # 4. Página pública del curso — SIN login (temario, precios, CTA WhatsApp)
+    path('info/<slug:slug>/', views.curso_publico, name='curso_publico'),
+
+    # 5. Detalle del curso para alumnos inscritos — CON login
     path('curso/<slug:slug>/', views.detalle_curso, name='detalle_curso'),
 
-    # 5. ✅ NUEVO — Marcar clase completada (AJAX)
+    # 6. Marcar clase completada (AJAX) — CON login
     path('clase/<int:clase_id>/marcar/', views.marcar_clase, name='marcar_clase'),
 
-    # 6. Login / Logout
+    # 7. Login / Logout
     path('accounts/login/',  auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
 
