@@ -4,31 +4,59 @@ Django settings for core project.
 
 from pathlib import Path
 import os
-
 from dotenv import load_dotenv
+import cloudinary
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# --- SEGURIDAD PRINCIPAL ---
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cambia-esto-solo-para-dev-local')
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'icitebc.lat', 'www.icitebc.lat', 'icitebc.onrender.com']
+# =====================================================
+# SEGURIDAD
+# =====================================================
 
-# --- APLICACIONES ---
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'cambia-esto-solo-para-dev-local'
+)
+
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'icitebc.lat',
+    'www.icitebc.lat',
+    'icitebc.onrender.com',
+]
+
+# =====================================================
+# APLICACIONES
+# =====================================================
+
 INSTALLED_APPS = [
+    'cloudinary_storage',
+    'cloudinary',
+    'storages',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'plataforma',
 ]
+
+# =====================================================
+# MIDDLEWARE
+# =====================================================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -38,6 +66,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+# =====================================================
+# TEMPLATES
+# =====================================================
 
 TEMPLATES = [
     {
@@ -56,7 +88,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# --- BASE DE DATOS ---
+# =====================================================
+# DATABASE
+# =====================================================
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -64,47 +99,114 @@ DATABASES = {
     }
 }
 
-# --- CONTRASEÑAS ---
+# =====================================================
+# PASSWORDS
+# =====================================================
+
 AUTH_PASSWORD_VALIDATORS = [
-    { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator' },
-    { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator' },
-    { 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator' },
-    { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator' },
+    {
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
+    },
+    {
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator'
+    },
+    {
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator'
+    },
+    {
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator'
+    },
 ]
 
-# --- INTERNACIONALIZACIÓN ---
+# =====================================================
+# INTERNACIONALIZACIÓN
+# =====================================================
+
 LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Tijuana'
+
 USE_I18N = True
 USE_TZ = True
 
-# --- ARCHIVOS ESTÁTICOS ---
+# =====================================================
+# STATIC FILES
+# =====================================================
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# =====================================================
+# CLOUDINARY
+# =====================================================
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
+    secure=True,
+)
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL  = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# =====================================================
+# LOGIN
+# =====================================================
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/accounts/login/'
 
-# --- HEADERS DE SEGURIDAD (solo en producción) ---
+# =====================================================
+# SEGURIDAD PRODUCCIÓN
+# =====================================================
+
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
+
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = 'DENY'
-    SECURE_BROWSER_XSS_FILTER = True
 
-# --- LOGGING DE SEGURIDAD ---
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+
+    X_FRAME_OPTIONS = 'DENY'
+
+# =====================================================
+# LOGGING
+# =====================================================
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
