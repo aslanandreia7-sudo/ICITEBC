@@ -1,9 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ curso.descripcion_corta|default:curso.descripcion|truncatewords:25 }}">
     <title>{{ curso.titulo }} — ICITEBC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,6 @@
         }
         h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
 
-        /* ── NAVBAR ── */
         .navbar {
             position: sticky; top: 0; z-index: 100;
             background: rgba(8,10,20,0.96);
@@ -60,19 +59,13 @@
         .nav-back:hover { color: var(--gold); }
         .nav-back svg { flex-shrink: 0; }
 
-        /* ── HERO DEL CURSO ── */
         .curso-hero {
             background: linear-gradient(135deg, #080A14 0%, #0D1528 40%, #0A1E3A 70%, #111830 100%);
             position: relative; overflow: hidden;
             padding: 4rem 2rem 3.5rem;
         }
-        .curso-hero-pcb {
-            position: absolute; inset: 0; pointer-events: none; z-index: 1;
-        }
-        .curso-hero-content {
-            max-width: 860px; margin: 0 auto;
-            position: relative; z-index: 2;
-        }
+        .curso-hero-pcb { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .curso-hero-content { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
         .hero-cat {
             display: inline-flex; align-items: center; gap: 7px;
             background: rgba(196,185,154,0.08);
@@ -88,13 +81,8 @@
             color: #F5F0E8; margin-bottom: 1rem;
         }
         .curso-hero h1 em { font-style: italic; color: var(--gold); }
-        .hero-desc {
-            font-size: .98rem; color: rgba(255,255,255,0.42);
-            max-width: 600px; line-height: 1.8; margin-bottom: 2rem;
-        }
-        .hero-meta {
-            display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 2rem;
-        }
+        .hero-desc { font-size: .98rem; color: rgba(255,255,255,0.42); max-width: 600px; line-height: 1.8; margin-bottom: 2rem; }
+        .hero-meta { display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 2rem; }
         .hero-pill {
             display: inline-flex; align-items: center; gap: 6px;
             background: rgba(255,255,255,0.05);
@@ -123,7 +111,6 @@
         }
         .btn-temario-hero:hover { background: rgba(196,185,154,0.07); transform: translateY(-2px); }
 
-        /* ── LAYOUT PRINCIPAL ── */
         .main-wrap {
             max-width: 1100px; margin: 0 auto;
             padding: 3.5rem 2rem;
@@ -137,7 +124,6 @@
             .sidebar { order: -1; }
         }
 
-        /* ── SECCIONES IZQUIERDA ── */
         .sec-block { margin-bottom: 2.8rem; }
         .sec-label {
             display: inline-flex; align-items: center; gap: 8px;
@@ -148,171 +134,67 @@
             content: ''; width: 16px; height: 1.5px;
             background: var(--gold-dk); border-radius: 2px; flex-shrink: 0;
         }
-        .sec-block h2 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 500; color: var(--text); margin-bottom: 1rem; line-height: 1.2;
-        }
-        .sec-block p {
-            font-size: .92rem; color: var(--text-mid); line-height: 1.85;
-        }
+        .sec-block h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text); margin-bottom: 1rem; line-height: 1.2; }
+        .sec-block p { font-size: .92rem; color: var(--text-mid); line-height: 1.85; }
         .sec-block p + p { margin-top: .7rem; }
 
-        /* Info grid */
         .info-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
             gap: 1px; background: var(--border);
             border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
             margin-top: 1.5rem;
         }
-        .info-cell {
-            background: var(--beige-card); padding: 1.2rem 1.3rem;
-        }
-        .info-cell .ic-lbl {
-            font-size: .64rem; font-weight: 600; letter-spacing: .1em;
-            text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem;
-        }
-        .info-cell .ic-val {
-            font-size: .88rem; font-weight: 600; color: var(--text); line-height: 1.4;
-        }
+        .info-cell { background: var(--beige-card); padding: 1.2rem 1.3rem; }
+        .info-cell .ic-lbl { font-size: .64rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
+        .info-cell .ic-val { font-size: .88rem; font-weight: 600; color: var(--text); line-height: 1.4; }
 
-        /* ── TEMARIO ── */
         .temario { margin-top: 1rem; }
-        .modulo-block {
-            border: 1px solid var(--border);
-            border-radius: 14px; overflow: hidden;
-            margin-bottom: 1rem;
-        }
+        .modulo-block { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; }
         .modulo-header {
             background: var(--navy-mid);
             padding: 1.1rem 1.4rem;
             display: flex; align-items: center; gap: 12px;
-            cursor: pointer; user-select: none;
-            transition: background .2s;
+            cursor: pointer; user-select: none; transition: background .2s;
         }
         .modulo-header:hover { background: #1A1F35; }
-        .modulo-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem; font-weight: 500;
-            color: var(--gold); flex-shrink: 0; min-width: 28px;
-        }
-        .modulo-titulo {
-            font-size: .9rem; font-weight: 600; color: #F5F0E8; flex: 1;
-        }
-        .modulo-meta {
-            font-size: .7rem; color: rgba(255,255,255,0.35);
-            flex-shrink: 0; white-space: nowrap;
-        }
-        .modulo-chevron {
-            flex-shrink: 0; transition: transform .3s ease;
-        }
+        .modulo-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--gold); flex-shrink: 0; min-width: 28px; }
+        .modulo-titulo { font-size: .9rem; font-weight: 600; color: #F5F0E8; flex: 1; }
+        .modulo-meta { font-size: .7rem; color: rgba(255,255,255,0.35); flex-shrink: 0; white-space: nowrap; }
+        .modulo-chevron { flex-shrink: 0; transition: transform .3s ease; }
         .modulo-block.open .modulo-chevron { transform: rotate(180deg); }
-
-        .modulo-body {
-            display: none; border-top: 1px solid var(--border);
-        }
+        .modulo-body { display: none; border-top: 1px solid var(--border); }
         .modulo-block.open .modulo-body { display: block; }
+        .modulo-desc { padding: .9rem 1.4rem; font-size: .82rem; color: var(--text-muted); background: var(--beige-mid); border-bottom: 1px solid var(--border); line-height: 1.7; }
 
-        .modulo-desc {
-            padding: .9rem 1.4rem;
-            font-size: .82rem; color: var(--text-muted);
-            background: var(--beige-mid);
-            border-bottom: 1px solid var(--border);
-            line-height: 1.7;
-        }
-
-        /* Secciones dentro del módulo */
         .seccion-block { border-bottom: 1px solid var(--border-lt); }
         .seccion-block:last-child { border-bottom: none; }
-        .seccion-titulo {
-            padding: .75rem 1.4rem .55rem;
-            font-size: .76rem; font-weight: 700;
-            letter-spacing: .08em; text-transform: uppercase;
-            color: var(--gold-dk); background: rgba(196,185,154,0.04);
-        }
+        .seccion-titulo { padding: .75rem 1.4rem .55rem; font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-dk); background: rgba(196,185,154,0.04); }
 
-        /* Clases */
-        .clase-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: .65rem 1.4rem .65rem 1.8rem;
-            border-top: 1px solid rgba(224,217,206,0.4);
-            transition: background .15s;
-        }
+        .clase-item { display: flex; align-items: center; gap: 10px; padding: .65rem 1.4rem .65rem 1.8rem; border-top: 1px solid rgba(224,217,206,0.4); transition: background .15s; }
         .clase-item:hover { background: rgba(196,185,154,0.04); }
-        .clase-icon {
-            width: 26px; height: 26px; border-radius: 7px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; font-size: .75rem;
-        }
-        .clase-icon.video  { background: rgba(29,95,212,0.1); color: #185FA5; }
-        .clase-icon.pdf    { background: rgba(217,65,30,0.1); color: #993C1D; }
-        .clase-icon.texto  { background: rgba(154,138,106,0.1); color: var(--gold-dk); }
+        .clase-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .75rem; }
+        .clase-icon.video { background: rgba(29,95,212,0.1); color: #185FA5; }
+        .clase-icon.pdf   { background: rgba(217,65,30,0.1);  color: #993C1D; }
+        .clase-icon.texto { background: rgba(154,138,106,0.1); color: var(--gold-dk); }
         .clase-titulo { font-size: .84rem; color: var(--text-mid); flex: 1; line-height: 1.4; }
-        .clase-dur {
-            font-size: .7rem; color: var(--text-muted);
-            flex-shrink: 0; white-space: nowrap;
-        }
-        .clase-gratis {
-            font-size: .62rem; font-weight: 700; letter-spacing: .06em;
-            background: #EAF3DE; border: 1px solid #C0DD97;
-            color: #3B6D11; padding: .15rem .5rem;
-            border-radius: 100px; flex-shrink: 0;
-        }
+        .clase-dur { font-size: .7rem; color: var(--text-muted); flex-shrink: 0; white-space: nowrap; }
+        .clase-gratis { font-size: .62rem; font-weight: 700; letter-spacing: .06em; background: #EAF3DE; border: 1px solid #C0DD97; color: #3B6D11; padding: .15rem .5rem; border-radius: 100px; flex-shrink: 0; }
 
-        /* ── SIDEBAR ── */
         .sidebar { position: sticky; top: 80px; }
-
-        .price-card {
-            background: var(--beige-card);
-            border: 1px solid var(--border);
-            border-radius: 18px; overflow: hidden;
-            margin-bottom: 1.2rem;
-        }
-        .price-card-header {
-            background: var(--navy-mid);
-            padding: 1.4rem 1.5rem;
-        }
-        .price-card-header .pc-label {
-            font-size: .64rem; font-weight: 600; letter-spacing: .1em;
-            text-transform: uppercase; color: rgba(255,255,255,0.35);
-            margin-bottom: .5rem;
-        }
-        .price-main {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem; font-weight: 500; color: #F5F0E8; line-height: 1;
-        }
+        .price-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 1.2rem; }
+        .price-card-header { background: var(--navy-mid); padding: 1.4rem 1.5rem; }
+        .price-card-header .pc-label { font-size: .64rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: .5rem; }
+        .price-main { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 500; color: #F5F0E8; line-height: 1; }
         .price-main span { font-size: 1rem; color: rgba(255,255,255,0.5); }
-        .price-desc-label {
-            font-size: .72rem; color: rgba(255,255,255,0.35); margin-top: .4rem;
-        }
-        .price-discount {
-            margin-top: 1rem; padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.07);
-        }
-        .price-discount .pd-label {
-            font-size: .64rem; font-weight: 600; letter-spacing: .08em;
-            text-transform: uppercase; color: var(--gold); margin-bottom: .3rem;
-        }
-        .price-discount .pd-val {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem; font-weight: 500; color: var(--gold); line-height: 1;
-        }
-        .price-discount .pd-desc {
-            font-size: .7rem; color: rgba(255,255,255,0.3); margin-top: .25rem;
-        }
-
+        .price-desc-label { font-size: .72rem; color: rgba(255,255,255,0.35); margin-top: .4rem; }
+        .price-discount { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07); }
+        .price-discount .pd-label { font-size: .64rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+        .price-discount .pd-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--gold); line-height: 1; }
+        .price-discount .pd-desc { font-size: .7rem; color: rgba(255,255,255,0.3); margin-top: .25rem; }
         .price-card-body { padding: 1.3rem 1.5rem; }
-        .anticipo-row {
-            display: flex; align-items: center; justify-content: space-between;
-            background: #FFF8EC; border: 1px solid #E8D49A;
-            border-radius: 9px; padding: .8rem 1rem; margin-bottom: 1.2rem;
-        }
-        .anticipo-row .ar-label {
-            font-size: .72rem; font-weight: 600; color: #7A6030;
-        }
-        .anticipo-row .ar-val {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem; font-weight: 500; color: #5A4010;
-        }
+        .anticipo-row { display: flex; align-items: center; justify-content: space-between; background: #FFF8EC; border: 1px solid #E8D49A; border-radius: 9px; padding: .8rem 1rem; margin-bottom: 1.2rem; }
+        .anticipo-row .ar-label { font-size: .72rem; font-weight: 600; color: #7A6030; }
+        .anticipo-row .ar-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; color: #5A4010; }
 
         .btn-wa-card {
             display: flex; align-items: center; justify-content: center; gap: 9px;
@@ -323,7 +205,6 @@
             letter-spacing: .02em; margin-bottom: .7rem;
         }
         .btn-wa-card:hover { background: #1fb855; transform: translateY(-2px); }
-
         .btn-info-card {
             display: flex; align-items: center; justify-content: center; gap: 8px;
             width: 100%; background: transparent;
@@ -334,37 +215,17 @@
         }
         .btn-info-card:hover { border-color: var(--gold); color: var(--text); }
 
-        .pagos-card {
-            background: var(--beige-card);
-            border: 1px solid var(--border);
-            border-radius: 14px; padding: 1.3rem 1.4rem;
-            margin-bottom: 1.2rem;
-        }
-        .pagos-title {
-            font-size: .72rem; font-weight: 700; letter-spacing: .1em;
-            text-transform: uppercase; color: var(--gold-dk); margin-bottom: 1rem;
-        }
-        .pago-item {
-            display: flex; align-items: center; gap: 9px;
-            font-size: .82rem; color: var(--text-mid); padding: .4rem 0;
-            border-bottom: 1px solid rgba(224,217,206,0.5);
-        }
+        .pagos-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem 1.4rem; margin-bottom: 1.2rem; }
+        .pagos-title { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 1rem; }
+        .pago-item { display: flex; align-items: center; gap: 9px; font-size: .82rem; color: var(--text-mid); padding: .4rem 0; border-bottom: 1px solid rgba(224,217,206,0.5); }
         .pago-item:last-child { border-bottom: none; }
         .pago-item svg { flex-shrink: 0; color: var(--gold-dk); }
 
-        .dc3-card {
-            background: var(--beige-mid);
-            border: 1px solid var(--border);
-            border-radius: 14px; padding: 1.2rem 1.4rem;
-            display: flex; gap: 10px; align-items: flex-start;
-        }
+        .dc3-card { background: var(--beige-mid); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem; display: flex; gap: 10px; align-items: flex-start; }
         .dc3-card svg { flex-shrink: 0; margin-top: 2px; color: var(--gold-dk); }
-        .dc3-card-text {
-            font-size: .78rem; color: var(--text-mid); line-height: 1.65;
-        }
+        .dc3-card-text { font-size: .78rem; color: var(--text-mid); line-height: 1.65; }
         .dc3-card-text strong { color: var(--text); font-weight: 600; }
 
-        /* ── BOTÓN FLOTANTE WHATSAPP ── */
         .wa-float {
             position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 999;
             display: flex; align-items: center; gap: 10px;
@@ -375,31 +236,18 @@
             box-shadow: 0 6px 28px rgba(37,211,102,0.35);
             transition: all .3s; letter-spacing: .02em;
         }
-        .wa-float:hover {
-            background: #1fb855;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 36px rgba(37,211,102,0.45);
-        }
+        .wa-float:hover { background: #1fb855; transform: translateY(-3px); box-shadow: 0 10px 36px rgba(37,211,102,0.45); }
         .wa-float-icon { width: 22px; height: 22px; flex-shrink: 0; }
         @media(max-width:500px){
             .wa-float span { display: none; }
             .wa-float { padding: 1rem; border-radius: 50%; }
         }
 
-        /* ── FOOTER ── */
-        .page-footer {
-            background: var(--navy-mid);
-            border-top: 1px solid rgba(196,185,154,0.1);
-            padding: 2rem; text-align: center;
-            margin-top: 2rem;
-        }
-        .page-footer p {
-            font-size: .76rem; color: rgba(255,255,255,0.2); line-height: 1.9;
-        }
+        .page-footer { background: var(--navy-mid); border-top: 1px solid rgba(196,185,154,0.1); padding: 2rem; text-align: center; margin-top: 2rem; }
+        .page-footer p { font-size: .76rem; color: rgba(255,255,255,0.2); line-height: 1.9; }
         .page-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
         .page-footer a:hover { color: var(--gold); }
 
-        /* ── ANIMACIONES ── */
         @keyframes pulseDot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(1.5); } }
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -412,7 +260,6 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
     <a href="/" class="nav-logo">
         <div class="nav-badge">IC</div>
@@ -424,8 +271,6 @@
     </a>
 </nav>
 
-
-<!-- HERO DEL CURSO -->
 <section class="curso-hero">
     <svg class="curso-hero-pcb" viewBox="0 0 1100 400" preserveAspectRatio="xMidYMid slice">
         <defs>
@@ -453,12 +298,10 @@
         {% endif %}
 
         <h1>{{ curso.titulo }}</h1>
-
         <p class="hero-desc">
             {% if curso.descripcion_corta %}{{ curso.descripcion_corta }}{% else %}{{ curso.descripcion|truncatewords:30 }}{% endif %}
         </p>
 
-        <!-- Pills con info rápida -->
         <div class="hero-meta">
             {% if curso.duracion %}
             <div class="hero-pill">
@@ -493,7 +336,7 @@
         </div>
 
         <div class="hero-btns">
-            <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn-wa-hero">
+            <a id="btn-wa-hero" href="#" target="_blank" rel="noopener noreferrer" class="btn-wa-hero">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Quiero apartar mi lugar
             </a>
@@ -505,14 +348,9 @@
     </div>
 </section>
 
-
-<!-- CONTENIDO PRINCIPAL -->
 <div class="main-wrap">
-
-    <!-- ── COLUMNA IZQUIERDA ── -->
     <div class="main-col">
 
-        <!-- Descripción larga -->
         {% if curso.descripcion_larga %}
         <div class="sec-block reveal">
             <div class="sec-label">Sobre este curso</div>
@@ -523,54 +361,21 @@
         </div>
         {% endif %}
 
-        <!-- Info rápida en grid -->
         <div class="sec-block reveal">
             <div class="sec-label">Información General</div>
             <div class="info-grid">
-                {% if curso.duracion %}
-                <div class="info-cell">
-                    <div class="ic-lbl">Duración</div>
-                    <div class="ic-val">{{ curso.duracion }}</div>
-                </div>
-                {% endif %}
-                {% if curso.modalidad %}
-                <div class="info-cell">
-                    <div class="ic-lbl">Modalidad</div>
-                    <div class="ic-val">{{ curso.modalidad }}</div>
-                </div>
-                {% endif %}
-                {% if curso.nivel %}
-                <div class="info-cell">
-                    <div class="ic-lbl">Nivel</div>
-                    <div class="ic-val">{{ curso.nivel }}</div>
-                </div>
-                {% endif %}
-                {% if curso.dirigido_a %}
-                <div class="info-cell">
-                    <div class="ic-lbl">Dirigido a</div>
-                    <div class="ic-val">{{ curso.dirigido_a }}</div>
-                </div>
-                {% endif %}
-                {% if curso.fecha_proxima %}
-                <div class="info-cell">
-                    <div class="ic-lbl">Próxima fecha</div>
-                    <div class="ic-val">{{ curso.fecha_proxima }}</div>
-                </div>
-                {% endif %}
-                {% if curso.cupo_maximo %}
-                <div class="info-cell">
-                    <div class="ic-lbl">Cupo máximo</div>
-                    <div class="ic-val">{{ curso.cupo_maximo }} alumnos</div>
-                </div>
-                {% endif %}
+                {% if curso.duracion %}<div class="info-cell"><div class="ic-lbl">Duración</div><div class="ic-val">{{ curso.duracion }}</div></div>{% endif %}
+                {% if curso.modalidad %}<div class="info-cell"><div class="ic-lbl">Modalidad</div><div class="ic-val">{{ curso.modalidad }}</div></div>{% endif %}
+                {% if curso.nivel %}<div class="info-cell"><div class="ic-lbl">Nivel</div><div class="ic-val">{{ curso.nivel }}</div></div>{% endif %}
+                {% if curso.dirigido_a %}<div class="info-cell"><div class="ic-lbl">Dirigido a</div><div class="ic-val">{{ curso.dirigido_a }}</div></div>{% endif %}
+                {% if curso.fecha_proxima %}<div class="info-cell"><div class="ic-lbl">Próxima fecha</div><div class="ic-val">{{ curso.fecha_proxima }}</div></div>{% endif %}
+                {% if curso.cupo_maximo %}<div class="info-cell"><div class="ic-lbl">Cupo máximo</div><div class="ic-val">{{ curso.cupo_maximo }} alumnos</div></div>{% endif %}
             </div>
         </div>
 
-        <!-- TEMARIO -->
         <div class="sec-block reveal" id="temario">
             <div class="sec-label">Programa del Curso</div>
             <h2>Temario completo</h2>
-
             {% if modulos %}
             <div class="temario" style="margin-top:1.4rem;">
                 {% for modulo in modulos %}
@@ -588,19 +393,12 @@
                         </svg>
                     </div>
                     <div class="modulo-body">
-                        {% if modulo.descripcion %}
-                        <div class="modulo-desc">{{ modulo.descripcion }}</div>
-                        {% endif %}
-
+                        {% if modulo.descripcion %}<div class="modulo-desc">{{ modulo.descripcion }}</div>{% endif %}
                         {% for seccion in modulo.secciones.all %}
                         <div class="seccion-block">
-                            {% if seccion.titulo %}
-                            <div class="seccion-titulo">{{ seccion.titulo }}</div>
-                            {% endif %}
-
+                            {% if seccion.titulo %}<div class="seccion-titulo">{{ seccion.titulo }}</div>{% endif %}
                             {% for clase in seccion.clases.all %}
                             <div class="clase-item">
-                                <!-- Ícono según tipo -->
                                 <div class="clase-icon {% if clase.tipo == 'video_url' or clase.tipo == 'video_archivo' %}video{% elif clase.tipo == 'pdf' %}pdf{% else %}texto{% endif %}">
                                     {% if clase.tipo == 'video_url' or clase.tipo == 'video_archivo' %}
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -611,66 +409,45 @@
                                     {% endif %}
                                 </div>
                                 <div class="clase-titulo">{{ clase.titulo }}</div>
-                                {% if clase.es_gratis %}
-                                    <span class="clase-gratis">GRATIS</span>
-                                {% endif %}
-                                {% if clase.duracion_minutos %}
-                                    <div class="clase-dur">{{ clase.duracion_minutos }} min</div>
-                                {% endif %}
+                                {% if clase.es_gratis %}<span class="clase-gratis">GRATIS</span>{% endif %}
+                                {% if clase.duracion_minutos %}<div class="clase-dur">{{ clase.duracion_minutos }} min</div>{% endif %}
                             </div>
                             {% empty %}
-                            <div class="clase-item" style="color:var(--text-muted);font-size:.8rem;font-style:italic;">
-                                Contenido próximamente
-                            </div>
+                            <div class="clase-item" style="color:var(--text-muted);font-size:.8rem;font-style:italic;">Contenido próximamente</div>
                             {% endfor %}
                         </div>
                         {% empty %}
-                        <div style="padding:1rem 1.4rem;font-size:.82rem;color:var(--text-muted);">
-                            Secciones próximamente
-                        </div>
+                        <div style="padding:1rem 1.4rem;font-size:.82rem;color:var(--text-muted);">Secciones próximamente</div>
                         {% endfor %}
                     </div>
                 </div>
                 {% empty %}
-                <p style="color:var(--text-muted);font-size:.9rem;padding:1rem 0;">
-                    El temario estará disponible próximamente.
-                </p>
+                <p style="color:var(--text-muted);font-size:.9rem;padding:1rem 0;">El temario estará disponible próximamente.</p>
                 {% endfor %}
             </div>
             {% endif %}
         </div>
 
-    </div><!-- /main-col -->
+    </div>
 
-
-    <!-- ── SIDEBAR ── -->
     <aside class="sidebar">
-
-        <!-- Precios -->
         <div class="price-card reveal">
             <div class="price-card-header">
                 <div class="pc-label">Precio del curso</div>
                 {% if curso.precio_general %}
-                <div class="price-main">
-                    <span>$</span>{{ curso.precio_general|floatformat:0 }} <span>MXN</span>
-                </div>
+                <div class="price-main"><span>$</span>{{ curso.precio_general|floatformat:0 }} <span>MXN</span></div>
                 <div class="price-desc-label">Precio público general</div>
-
                 {% if curso.precio_descuento and curso.precio_descuento > 0 %}
                 <div class="price-discount">
-                    <div class="pd-label">
-                        {% if curso.precio_descuento_label %}{{ curso.precio_descuento_label }}{% else %}Precio con descuento{% endif %}
-                    </div>
+                    <div class="pd-label">{% if curso.precio_descuento_label %}{{ curso.precio_descuento_label }}{% else %}Precio con descuento{% endif %}</div>
                     <div class="pd-val">${{ curso.precio_descuento|floatformat:0 }} MXN</div>
                     <div class="pd-desc">Con credencial o comprobante vigente</div>
                 </div>
                 {% endif %}
-
                 {% else %}
                 <div class="price-main" style="font-size:1.4rem;">Consultar precio</div>
                 {% endif %}
             </div>
-
             <div class="price-card-body">
                 {% if curso.anticipo and curso.anticipo > 0 %}
                 <div class="anticipo-row">
@@ -678,18 +455,14 @@
                     <div class="ar-val">${{ curso.anticipo|floatformat:0 }}</div>
                 </div>
                 {% endif %}
-
-                <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn-wa-card">
+                <a id="btn-wa-card" href="#" target="_blank" rel="noopener noreferrer" class="btn-wa-card">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     Quiero apartar mi lugar
                 </a>
-                <a href="/#contacto" class="btn-info-card">
-                    Solicitar más información
-                </a>
+                <a href="/#contacto" class="btn-info-card">Solicitar más información</a>
             </div>
         </div>
 
-        <!-- Formas de pago -->
         <div class="pagos-card reveal">
             <div class="pagos-title">Formas de pago</div>
             <div class="pago-item">
@@ -714,7 +487,6 @@
             </div>
         </div>
 
-        <!-- Nota DC3 -->
         <div class="dc3-card reveal">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <div class="dc3-card-text">
@@ -724,13 +496,9 @@
                 independiente — nuestro equipo te orienta al finalizar.
             </div>
         </div>
-
     </aside>
+</div>
 
-</div><!-- /main-wrap -->
-
-
-<!-- FOOTER -->
 <footer class="page-footer">
     <p>
         <a href="/">ICITEBC Mexicali</a> · Agente Capacitador CONOCER · EC217.01<br>
@@ -739,18 +507,25 @@
     </p>
 </footer>
 
-
-<!-- BOTÓN FLOTANTE WHATSAPP -->
-<a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="wa-float">
+<a id="btn-wa-float" href="#" target="_blank" rel="noopener noreferrer" class="wa-float">
     <svg class="wa-float-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
     <span>Quiero apartar mi lugar</span>
 </a>
 
-
 <script>
-    /* Reveal on scroll */
+    // URL de WhatsApp asignada de forma segura via JS, nunca en href directo
+    (function() {
+        var waUrl = "{{ whatsapp_url|escapejs }}";
+        // Validar que solo sea URL de WhatsApp
+        if (waUrl && waUrl.startsWith('https://wa.me/')) {
+            document.getElementById('btn-wa-hero').href  = waUrl;
+            document.getElementById('btn-wa-card').href  = waUrl;
+            document.getElementById('btn-wa-float').href = waUrl;
+        }
+    })();
+
     function revealCheck() {
         document.querySelectorAll('.reveal').forEach(el => {
             if (el.getBoundingClientRect().top < window.innerHeight - 60)
@@ -760,13 +535,10 @@
     window.addEventListener('scroll', revealCheck);
     revealCheck();
 
-    /* Toggle módulos del temario */
     function toggleModulo(header) {
-        const block = header.parentElement;
-        block.classList.toggle('open');
+        header.parentElement.classList.toggle('open');
     }
 
-    /* Abrir todos / cerrar todos (opcional) */
     document.querySelectorAll('.modulo-header').forEach(h => {
         h.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleModulo(h); }

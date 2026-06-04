@@ -31,16 +31,24 @@
                     <h2 class="text-2xl font-bold text-slate-800 mb-2">Iniciar Sesión</h2>
                     <p class="text-slate-500 text-sm mb-6">Ingresa tus credenciales para acceder a tus cursos.</p>
 
+                    {% if form.errors %}
+                    <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                        Usuario o contraseña incorrectos. Intenta de nuevo.
+                    </div>
+                    {% endif %}
+
                     <form method="post" action="{% url 'login' %}">
                         {% csrf_token %}
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Usuario</label>
-                                <input type="text" name="username" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                <input type="text" name="username" autocomplete="username"
+                                    class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Contraseña</label>
-                                <input type="password" name="password" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                <input type="password" name="password" autocomplete="current-password"
+                                    class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition">
                             </div>
                             <button type="submit" class="w-full gradient-navy text-white py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition">
                                 Entrar a la plataforma
@@ -51,17 +59,10 @@
                     <div class="mt-8 pt-6 border-t border-slate-100">
                         <p class="text-sm text-slate-600 text-center">
                             ¿Aún no tienes cuenta? <br>
-                            <a href="#contacto" class="text-blue-600 font-bold hover:underline">Contacta a soporte para tu registro</a>
+                            <a href="/#contacto" class="text-blue-600 font-bold hover:underline">Contacta a soporte para tu registro</a>
                         </p>
                     </div>
                 </div>
-            </div>
-
-            <div class="mt-8 flex justify-center">
-                <a href="/admin" class="flex items-center gap-2 text-slate-400 hover:text-slate-600 transition text-xs font-medium">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i>
-                    Panel de Administración Segura
-                </a>
             </div>
         </div>
     </div>

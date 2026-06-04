@@ -6,8 +6,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # 1. Panel de Administración
-    path('admin/', admin.site.urls),
+    # 1. Panel de Administración — URL oculta
+    path('gestion-ic1t3bc-2025/', admin.site.urls),
 
     # 2. Página de Inicio (Pública)
     path('', views.home, name='home'),
@@ -15,13 +15,13 @@ urlpatterns = [
     # 3. Dashboard del Alumno (Privado)
     path('dashboard/', views.dashboard, name='dashboard'),
 
-    # 4. Página pública del curso — SIN login (temario, precios, CTA WhatsApp)
+    # 4. Página pública del curso
     path('info/<slug:slug>/', views.curso_publico, name='curso_publico'),
 
-    # 5. Detalle del curso para alumnos inscritos — CON login
+    # 5. Detalle del curso para alumnos inscritos
     path('curso/<slug:slug>/', views.detalle_curso, name='detalle_curso'),
 
-    # 6. Marcar clase completada (AJAX) — CON login
+    # 6. Marcar clase completada (AJAX)
     path('clase/<int:clase_id>/marcar/', views.marcar_clase, name='marcar_clase'),
 
     # 7. Login / Logout

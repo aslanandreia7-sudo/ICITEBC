@@ -1,3 +1,4 @@
+```html
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -64,22 +65,17 @@
             font-weight: 700; font-size: .78rem; color: var(--navy-mid);
             letter-spacing: .04em;
         }
-        .nav-logo .name {
-            font-weight: 600; font-size: .9rem;
-            color: #fff; letter-spacing: .06em;
-        }
+        .nav-logo .name { font-weight: 600; font-size: .9rem; color: #fff; letter-spacing: .06em; }
         .nav-links { display: flex; align-items: center; gap: 2rem; }
         .nav-links a {
             color: rgba(255,255,255,0.55); text-decoration: none;
-            font-size: .8rem; font-weight: 400; letter-spacing: .04em;
-            transition: color .2s;
+            font-size: .8rem; font-weight: 400; letter-spacing: .04em; transition: color .2s;
         }
         .nav-links a:hover { color: #fff; }
         .nav-links .nav-cta {
             background: var(--gold); color: var(--navy-mid) !important;
             padding: .42rem 1.1rem; border-radius: 7px; font-weight: 600;
-            font-size: .78rem; letter-spacing: .04em;
-            transition: background .2s;
+            font-size: .78rem; letter-spacing: .04em; transition: background .2s;
         }
         .nav-links .nav-cta:hover { background: #d4c9aa; }
 
@@ -98,10 +94,7 @@
 
         .mobile-menu { display: none; position: fixed; inset: 0; z-index: 190; }
         .mobile-menu.open { display: block; }
-        .mobile-overlay {
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,.55); backdrop-filter: blur(4px);
-        }
+        .mobile-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
         .mobile-drawer {
             position: absolute; top: 0; right: 0;
             width: min(320px, 88vw); height: 100vh;
@@ -151,21 +144,14 @@
             padding: 9rem 3rem 5rem;
             background: linear-gradient(135deg, #080A14 0%, #0D1528 35%, #0A1E3A 60%, #0D2040 80%, #111830 100%);
         }
-        .hero-pcb {
-            position: absolute; inset: 0;
-            pointer-events: none; z-index: 1;
-        }
+        .hero-pcb { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .hero-glow {
-            position: absolute; z-index: 1;
-            top: -5%; left: 30%;
+            position: absolute; z-index: 1; top: -5%; left: 30%;
             width: 700px; height: 600px;
             background: radial-gradient(ellipse, rgba(196,185,154,0.04) 0%, transparent 65%);
             pointer-events: none;
         }
-        .hero-content {
-            max-width: 1140px; margin: 0 auto; width: 100%;
-            position: relative; z-index: 2;
-        }
+        .hero-content { max-width: 1140px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
 
         .badge-cert {
             display: inline-flex; align-items: center; gap: 9px;
@@ -173,27 +159,17 @@
             border: 1px solid rgba(196,185,154,0.22);
             border-radius: 100px; padding: .38rem 1.1rem;
             font-size: .7rem; font-weight: 600; color: var(--gold);
-            letter-spacing: .08em; text-transform: uppercase;
-            margin-bottom: 1.8rem;
+            letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1.8rem;
         }
-        .badge-cert .pulse {
-            width: 7px; height: 7px; background: var(--gold);
-            border-radius: 50%; animation: pulseDot 2s infinite;
-        }
+        .badge-cert .pulse { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; animation: pulseDot 2s infinite; }
 
         .hero h1 {
             font-size: clamp(3rem, 7vw, 6.2rem);
             font-weight: 500; line-height: 1.05;
-            letter-spacing: -.01em; margin-bottom: 1.4rem;
-            color: #F5F0E8;
+            letter-spacing: -.01em; margin-bottom: 1.4rem; color: #F5F0E8;
         }
-        .hero h1 em {
-            font-style: italic; color: var(--gold);
-        }
-        .hero-sub {
-            font-size: 1rem; color: rgba(255,255,255,0.38);
-            max-width: 500px; line-height: 1.8; margin-bottom: 2.6rem;
-        }
+        .hero h1 em { font-style: italic; color: var(--gold); }
+        .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.38); max-width: 500px; line-height: 1.8; margin-bottom: 2.6rem; }
         .hero-btns { display: flex; gap: .9rem; flex-wrap: wrap; }
 
         .btn {
@@ -203,40 +179,18 @@
             text-decoration: none; transition: all .25s ease;
             cursor: pointer; border: none; letter-spacing: .03em;
         }
-        .btn-primary {
-            background: var(--gold); color: var(--navy-mid);
-        }
+        .btn-primary { background: var(--gold); color: var(--navy-mid); }
         .btn-primary:hover { background: #d4c9aa; transform: translateY(-2px); }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid rgba(196,185,154,0.25);
-            color: #F5F0E8;
-        }
+        .btn-outline { background: transparent; border: 1px solid rgba(196,185,154,0.25); color: #F5F0E8; }
         .btn-outline:hover { background: rgba(196,185,154,0.07); transform: translateY(-2px); }
 
         /* ── STATS ── */
-        .stats-band {
-            background: var(--beige-card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 2.4rem 3rem;
-        }
-        .stats-inner {
-            max-width: 1100px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 0; text-align: center;
-        }
+        .stats-band { background: var(--beige-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2.4rem 3rem; }
+        .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; text-align: center; }
         .stat-item { padding: 0 1rem; }
         .stat-item + .stat-item { border-left: 1px solid var(--border); }
-        .stat-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem; font-weight: 500; line-height: 1;
-            color: var(--text); margin-bottom: .35rem;
-        }
-        .stat-lbl {
-            font-size: .7rem; font-weight: 500; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: .09em;
-        }
+        .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 500; line-height: 1; color: var(--text); margin-bottom: .35rem; }
+        .stat-lbl { font-size: .7rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: .09em; }
         @media(max-width:640px){
             .stats-inner { grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
             .stat-item + .stat-item { border-left: none; }
@@ -251,101 +205,39 @@
             font-size: .68rem; font-weight: 600; letter-spacing: .16em;
             text-transform: uppercase; color: var(--gold-dk); margin-bottom: 1rem;
         }
-        .sec-label::before {
-            content: ''; width: 18px; height: 1.5px;
-            background: var(--gold-dk); border-radius: 2px; flex-shrink: 0;
-        }
-        .sec-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500; letter-spacing: -.01em;
-            line-height: 1.15; margin-bottom: 1rem; color: var(--text);
-        }
-        .sec-sub {
-            font-size: .95rem; color: var(--text-mid);
-            line-height: 1.85; max-width: 520px;
-        }
-        .divider {
-            width: 32px; height: 1.5px;
-            background: var(--gold); border-radius: 2px; margin-bottom: 1.6rem;
-        }
+        .sec-label::before { content: ''; width: 18px; height: 1.5px; background: var(--gold-dk); border-radius: 2px; flex-shrink: 0; }
+        .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: -.01em; line-height: 1.15; margin-bottom: 1rem; color: var(--text); }
+        .sec-sub { font-size: .95rem; color: var(--text-mid); line-height: 1.85; max-width: 520px; }
+        .divider { width: 32px; height: 1.5px; background: var(--gold); border-radius: 2px; margin-bottom: 1.6rem; }
 
         /* ── NOSOTROS ── */
-        .nosotros-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 5rem; align-items: start;
-        }
+        .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
         @media(max-width:820px){ .nosotros-grid{ grid-template-columns: 1fr; gap: 3rem; } }
-
         .check-list { display: flex; flex-direction: column; gap: .6rem; margin-top: 1.5rem; }
-        .check-item {
-            display: flex; align-items: center; gap: 9px;
-            font-size: .85rem; color: var(--text-mid);
-        }
-        .check-dot {
-            width: 5px; height: 5px; background: var(--gold-dk);
-            border-radius: 50%; flex-shrink: 0;
-        }
-
+        .check-item { display: flex; align-items: center; gap: 9px; font-size: .85rem; color: var(--text-mid); }
+        .check-dot { width: 5px; height: 5px; background: var(--gold-dk); border-radius: 50%; flex-shrink: 0; }
         .mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
-        .mini-card {
-            background: var(--beige-card);
-            border: 1px solid var(--border);
-            border-radius: 14px; padding: 1.3rem;
-            transition: border-color .3s;
-        }
+        .mini-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem; transition: border-color .3s; }
         .mini-card:hover { border-color: var(--gold); }
         .mini-card .icon { font-size: 1.3rem; margin-bottom: .6rem; color: var(--gold-dk); }
         .mini-card .mc-title { font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: .25rem; }
         .mini-card .mc-sub   { font-size: .76rem; color: var(--text-muted); line-height: 1.5; }
 
         /* ── CERTIFICACIÓN ── */
-        .cert-bg {
-            background: var(--beige-mid);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-        .dc3-banner {
-            background: var(--navy-mid);
-            border-radius: 18px; padding: 2.4rem;
-            display: grid; grid-template-columns: 1fr auto;
-            gap: 2rem; align-items: center;
-            margin-bottom: 2rem;
-        }
+        .cert-bg { background: var(--beige-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .dc3-banner { background: var(--navy-mid); border-radius: 18px; padding: 2.4rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; margin-bottom: 2rem; }
         @media(max-width:600px){ .dc3-banner{ grid-template-columns:1fr; } .dc3-stamp{ display:none; } }
-        .dc3-stamp {
-            width: 96px; height: 96px; flex-shrink: 0;
-            border: 1.5px solid rgba(196,185,154,0.3); border-radius: 50%;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            background: rgba(196,185,154,0.04);
-        }
+        .dc3-stamp { width: 96px; height: 96px; flex-shrink: 0; border: 1.5px solid rgba(196,185,154,0.3); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(196,185,154,0.04); }
         .dc3-stamp .big  { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 600; color: var(--gold); line-height: 1; }
         .dc3-stamp .tiny { font-size: .56rem; font-weight: 600; color: #6A7080; letter-spacing: .07em; text-transform: uppercase; margin-top: 3px; text-align: center; line-height: 1.4; }
         .dc3-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 500; color: #F5F0E8; margin-bottom: .6rem; }
         .dc3-text  { font-size: .86rem; color: #7A8090; line-height: 1.85; max-width: 500px; }
         .dc3-text + .dc3-text { margin-top: .7rem; }
         .dc3-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.1rem; }
-        .dc3-tag {
-            background: rgba(196,185,154,0.1);
-            border: 1px solid rgba(196,185,154,0.2);
-            color: var(--gold); padding: .22rem .8rem;
-            border-radius: 100px; font-size: .68rem; font-weight: 600; letter-spacing: .04em;
-        }
-
-        .conocer-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-            gap: 1px; background: var(--border);
-            border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
-        }
-        .cc {
-            background: var(--beige-card); padding: 1.9rem 1.5rem;
-            transition: background .3s; position: relative; overflow: hidden;
-        }
-        .cc::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 2px; height: 100%; background: var(--gold); opacity: 0; transition: opacity .3s;
-        }
+        .dc3-tag { background: rgba(196,185,154,0.1); border: 1px solid rgba(196,185,154,0.2); color: var(--gold); padding: .22rem .8rem; border-radius: 100px; font-size: .68rem; font-weight: 600; letter-spacing: .04em; }
+        .conocer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1px; background: var(--border); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+        .cc { background: var(--beige-card); padding: 1.9rem 1.5rem; transition: background .3s; position: relative; overflow: hidden; }
+        .cc::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: var(--gold); opacity: 0; transition: opacity .3s; }
         .cc:hover::before { opacity: 1; }
         .cc:hover { background: rgba(196,185,154,0.06); }
         .cc-icon { font-size: 1.4rem; margin-bottom: .8rem; color: var(--gold-dk); }
@@ -354,265 +246,104 @@
 
         /* ── CURSOS ── */
         .carrusel-wrapper { position: relative; overflow: hidden; padding: 0 0 1rem; }
-        .carrusel-track {
-            display: flex; align-items: stretch; gap: 1.3rem;
-            transition: transform .45s cubic-bezier(.16,1,.3,1);
-            will-change: transform; cursor: grab; user-select: none;
-        }
+        .carrusel-track { display: flex; align-items: stretch; gap: 1.3rem; transition: transform .45s cubic-bezier(.16,1,.3,1); will-change: transform; cursor: grab; user-select: none; }
         .carrusel-track:active { cursor: grabbing; }
-
-        .curso-card {
-            background: var(--beige-card);
-            border: 1px solid var(--border);
-            border-radius: 16px; overflow: hidden;
-            transition: all .4s cubic-bezier(.16,1,.3,1);
-            flex: 0 0 290px; cursor: pointer;
-            display: flex; flex-direction: column;
-            min-height: 440px; outline: none;
-        }
-        .curso-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--gold);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-        }
-        .curso-card.abierto {
-            flex-basis: 500px; min-height: 600px;
-            border-color: var(--gold);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
-            transform: translateY(-5px);
-        }
-
-        .curso-img-wrap {
-            width: 100%; aspect-ratio: 16/9;
-            overflow: hidden; background: var(--navy-card); position: relative;
-        }
-        .curso-img-wrap::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(250,250,247,0.95) 100%);
-        }
+        .curso-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all .4s cubic-bezier(.16,1,.3,1); flex: 0 0 290px; cursor: pointer; display: flex; flex-direction: column; min-height: 440px; outline: none; }
+        .curso-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+        .curso-card.abierto { flex-basis: 500px; min-height: 600px; border-color: var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.12); transform: translateY(-5px); }
+        .curso-img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--navy-card); position: relative; }
+        .curso-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(250,250,247,0.95) 100%); }
         .curso-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
-        .curso-card:hover .curso-img,
-        .curso-card.abierto .curso-img { transform: scale(1.04); }
-
-        .curso-img-placeholder {
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--navy), var(--navy-card));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; color: var(--gold);
-        }
-
+        .curso-card:hover .curso-img, .curso-card.abierto .curso-img { transform: scale(1.04); }
+        .curso-img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--navy), var(--navy-card)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--gold); }
         .curso-body { padding: 1.3rem; display: flex; flex-direction: column; flex: 1; }
-        .curso-cat {
-            display: inline-block;
-            background: #F0EAD8; border: 1px solid #D4C9A8;
-            color: #7A6A40; padding: .18rem .7rem;
-            border-radius: 100px; font-size: .66rem; font-weight: 600;
-            letter-spacing: .08em; text-transform: uppercase;
-            margin-bottom: .7rem; width: fit-content;
-        }
-        .curso-body h3 {
-            font-size: .95rem; font-weight: 600; color: var(--text);
-            margin-bottom: .6rem; transition: font-size .35s ease;
-        }
+        .curso-cat { display: inline-block; background: #F0EAD8; border: 1px solid #D4C9A8; color: #7A6A40; padding: .18rem .7rem; border-radius: 100px; font-size: .66rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .7rem; width: fit-content; }
+        .curso-body h3 { font-size: .95rem; font-weight: 600; color: var(--text); margin-bottom: .6rem; transition: font-size .35s ease; }
         .curso-card.abierto .curso-body h3 { font-size: 1.2rem; }
-
         .curso-desc {
             font-size: .8rem; color: var(--text-muted); line-height: 1.7;
-            display: -webkit-box; -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical; overflow: hidden;
-            transition: all .35s ease;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            line-clamp: 4;
+            overflow: hidden; transition: all .35s ease;
         }
-        .curso-card.abierto .curso-desc {
-            display: block; -webkit-line-clamp: unset;
-            overflow: visible; color: var(--text-mid);
-            font-size: .88rem; line-height: 1.85;
-        }
-
-        .curso-actions {
-            display: flex; gap: .6rem; margin-top: 1.1rem;
-            opacity: 0; max-height: 0; overflow: hidden;
-            transition: opacity .35s ease, max-height .35s ease;
-        }
-        .curso-card.abierto .curso-actions {
-            opacity: 1; max-height: 80px;
-        }
-        .btn-temario {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--navy-mid); color: #F5F0E8;
-            border: none; padding: .6rem 1.1rem;
-            border-radius: 8px; font-family: 'Inter', sans-serif;
-            font-size: .76rem; font-weight: 600; cursor: pointer;
-            text-decoration: none; transition: background .2s;
-            letter-spacing: .03em;
-        }
+        .curso-card.abierto .curso-desc { display: block; overflow: visible; color: var(--text-mid); font-size: .88rem; line-height: 1.85; }
+        .curso-actions { display: flex; gap: .6rem; margin-top: 1.1rem; opacity: 0; max-height: 0; overflow: hidden; transition: opacity .35s ease, max-height .35s ease; }
+        .curso-card.abierto .curso-actions { opacity: 1; max-height: 80px; }
+        .btn-temario { display: inline-flex; align-items: center; gap: 6px; background: var(--navy-mid); color: #F5F0E8; border: none; padding: .6rem 1.1rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background .2s; letter-spacing: .03em; }
         .btn-temario:hover { background: #1A1F35; }
-        .btn-temario-outline {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: transparent; color: var(--text-mid);
-            border: 1px solid var(--border);
-            padding: .6rem 1.1rem; border-radius: 8px;
-            font-family: 'Inter', sans-serif; font-size: .76rem;
-            font-weight: 600; cursor: pointer; text-decoration: none;
-            transition: all .2s; letter-spacing: .03em;
-        }
+        .btn-temario-outline { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--text-mid); border: 1px solid var(--border); padding: .6rem 1.1rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all .2s; letter-spacing: .03em; }
         .btn-temario-outline:hover { border-color: var(--gold); color: var(--text); }
-
-        .curso-foot {
-            display: flex; align-items: center;
-            justify-content: space-between; gap: .7rem;
-            padding: .85rem 1.3rem;
-            border-top: 1px solid var(--border);
-            margin-top: auto;
-        }
+        .curso-foot { display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .85rem 1.3rem; border-top: 1px solid var(--border); margin-top: auto; }
         .curso-expand-note { font-size: .68rem; color: var(--text-muted); }
         .curso-arrow { transition: transform .3s ease; flex-shrink: 0; }
         .curso-card.abierto .curso-arrow { transform: rotate(180deg); }
-
-        .dc3-notice {
-            background: #FFF8EC; border: 1px solid #E8D49A;
-            border-radius: 10px; padding: 1rem 1.2rem;
-            display: flex; gap: 10px; align-items: flex-start; margin-top: 1.6rem;
-        }
+        .dc3-notice { background: #FFF8EC; border: 1px solid #E8D49A; border-radius: 10px; padding: 1rem 1.2rem; display: flex; gap: 10px; align-items: flex-start; margin-top: 1.6rem; }
         .dc3-notice svg { flex-shrink: 0; margin-top: 1px; }
         .dc3-notice-text { font-size: .82rem; color: #7A6030; line-height: 1.65; }
         .dc3-notice-text strong { color: #5A4010; font-weight: 600; }
-
-        .carrusel-btn {
-            position: absolute; top: 42%; transform: translateY(-50%);
-            z-index: 10; width: 40px; height: 40px; border-radius: 50%;
-            background: var(--beige-card); border: 1px solid var(--border);
-            color: var(--text); display: flex; align-items: center;
-            justify-content: center; cursor: pointer; transition: all .25s;
-        }
+        .carrusel-btn { position: absolute; top: 42%; transform: translateY(-50%); z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: var(--beige-card); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .25s; }
         .carrusel-btn:hover { background: var(--navy-mid); color: #fff; border-color: var(--navy-mid); }
         .carrusel-btn:disabled { opacity: .25; cursor: default; pointer-events: none; }
         .carrusel-prev { left: -18px; }
         .carrusel-next { right: -18px; }
-
         .carrusel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 1.6rem; }
-        .carrusel-dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: var(--border); border: none; cursor: pointer; transition: all .3s; padding: 0;
-        }
+        .carrusel-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; transition: all .3s; padding: 0; }
         .carrusel-dot.active { background: var(--gold-dk); width: 20px; border-radius: 4px; }
-
         @media(max-width:900px){ .curso-card { flex: 0 0 260px; } .curso-card.abierto { flex-basis: 400px; } }
         @media(max-width:600px){ .curso-card { flex: 0 0 240px; } .curso-card.abierto { flex-basis: 300px; } .carrusel-prev{ left:-6px; } .carrusel-next{ right:-6px; } }
 
         /* ── PROCESO ── */
-        .proceso-bg {
-            background: var(--beige-card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
+        .proceso-bg { background: var(--beige-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 0; position: relative; }
-        .pasos::before {
-            content: ''; position: absolute; top: 1.8rem; left: 8%; right: 8%;
-            height: 1px; background: linear-gradient(90deg, transparent, var(--border), var(--border), transparent);
-        }
+        .pasos::before { content: ''; position: absolute; top: 1.8rem; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), var(--border), transparent); }
         @media(max-width:600px){ .pasos::before{ display:none; } .pasos{ gap:1.5rem; } }
         .paso { text-align: center; padding: 0 1rem 2rem; }
-        .paso-n {
-            width: 56px; height: 56px; border-radius: 50%;
-            margin: 0 auto 1.2rem;
-            background: var(--beige); border: 1px solid var(--gold);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Playfair Display', serif; font-size: 1.3rem;
-            font-weight: 500; color: var(--gold-dk); position: relative; z-index: 2;
-        }
+        .paso-n { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 1.2rem; background: var(--beige); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500; color: var(--gold-dk); position: relative; z-index: 2; }
         .paso h4 { font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: .35rem; }
         .paso p  { font-size: .78rem; color: var(--text-muted); line-height: 1.65; }
 
         /* ── TESTIMONIALES ── */
         .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.2rem; }
-        .test-card {
-            background: var(--beige-card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2rem; position: relative;
-        }
-        .test-card::before {
-            content: '\201C'; position: absolute; top: 1rem; right: 1.3rem;
-            font-family: 'Playfair Display', serif; font-size: 4.5rem;
-            font-weight: 600; color: rgba(154,138,106,0.1); line-height: 1;
-        }
+        .test-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
+        .test-card::before { content: '\201C'; position: absolute; top: 1rem; right: 1.3rem; font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 600; color: rgba(154,138,106,0.1); line-height: 1; }
         .test-card p { font-size: .84rem; color: var(--text-mid); line-height: 1.85; font-style: italic; margin-bottom: 1.3rem; }
         .test-author { display: flex; align-items: center; gap: 10px; }
-        .test-av {
-            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-            background: var(--navy-mid); display: flex; align-items: center;
-            justify-content: center; font-weight: 700; font-size: .75rem; color: var(--gold);
-        }
+        .test-av { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; background: var(--navy-mid); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .75rem; color: var(--gold); }
         .test-name { font-size: .82rem; font-weight: 600; color: var(--text); }
         .test-role { font-size: .7rem; color: var(--text-muted); }
 
         /* ── CONTACTO ── */
-        .contact-box {
-            background: var(--beige-card); border: 1px solid var(--border);
-            border-radius: 22px; padding: 3.5rem;
-        }
+        .contact-box { background: var(--beige-card); border: 1px solid var(--border); border-radius: 22px; padding: 3.5rem; }
         @media(max-width:600px){ .contact-box{ padding: 2rem; } }
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
         @media(max-width:600px){ .contact-grid{ grid-template-columns: 1fr; } }
         .f-label { display: block; font-size: .67rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .4rem; }
-        .f-input {
-            width: 100%; background: #fff; border: 1px solid var(--border);
-            border-radius: 9px; padding: .8rem 1rem; color: var(--text);
-            font-family: 'Inter', sans-serif; font-size: .88rem; outline: none; transition: border .25s;
-        }
+        .f-input { width: 100%; background: #fff; border: 1px solid var(--border); border-radius: 9px; padding: .8rem 1rem; color: var(--text); font-family: 'Inter', sans-serif; font-size: .88rem; outline: none; transition: border .25s; }
         .f-input::placeholder { color: rgba(26,26,26,0.25); }
         .f-input:focus { border-color: var(--gold); }
-        .submit-btn {
-            width: 100%; background: var(--navy-mid); color: #F5F0E8;
-            border: none; padding: .95rem 2rem; border-radius: 9px;
-            font-family: 'Inter', sans-serif; font-size: .9rem;
-            font-weight: 600; letter-spacing: .04em; cursor: pointer; transition: background .25s;
-        }
+        .submit-btn { width: 100%; background: var(--navy-mid); color: #F5F0E8; border: none; padding: .95rem 2rem; border-radius: 9px; font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 600; letter-spacing: .04em; cursor: pointer; transition: background .25s; }
         .submit-btn:hover { background: #1A1F35; }
-
-        .success-msg {
-            background: #F0F7EC; border: 1px solid #B8D9A0;
-            border-radius: 9px; padding: 1rem 1.2rem;
-            font-size: .88rem; color: #3A6020;
-            margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;
-        }
-
-        .contact-meta {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-            gap: 1.2rem; margin-top: 2.4rem; padding-top: 1.8rem; border-top: 1px solid var(--border);
-        }
+        .success-msg { background: #F0F7EC; border: 1px solid #B8D9A0; border-radius: 9px; padding: 1rem 1.2rem; font-size: .88rem; color: #3A6020; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        .contact-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 1.2rem; margin-top: 2.4rem; padding-top: 1.8rem; border-top: 1px solid var(--border); }
         .cm-item { display: flex; align-items: flex-start; gap: 10px; }
-        .cm-icon {
-            width: 32px; height: 32px; background: var(--beige-mid);
-            border-radius: 8px; display: flex; align-items: center;
-            justify-content: center; font-size: .85rem; flex-shrink: 0;
-        }
+        .cm-icon { width: 32px; height: 32px; background: var(--beige-mid); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .85rem; flex-shrink: 0; }
         .cm-lbl { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); margin-bottom: 2px; }
         .cm-val { font-size: .82rem; color: var(--text-mid); line-height: 1.6; }
 
         /* ── FOOTER ── */
-        footer {
-            background: var(--navy-mid);
-            border-top: 1px solid rgba(196,185,154,0.1);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem; font-weight: 400;
-            color: #F5F0E8; margin-bottom: .9rem; letter-spacing: .06em;
-        }
+        footer { background: var(--navy-mid); border-top: 1px solid rgba(196,185,154,0.1); padding: 3rem 2rem; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; color: #F5F0E8; margin-bottom: .9rem; letter-spacing: .06em; }
         .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.6rem; margin: 1rem 0; }
         .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: .78rem; transition: color .2s; }
         .footer-links a:hover { color: var(--gold); }
-        .footer-sub {
-            font-size: .76rem; color: rgba(255,255,255,0.2);
-            line-height: 1.9; margin-top: .6rem;
-        }
+        .footer-sub { font-size: .76rem; color: rgba(255,255,255,0.2); line-height: 1.9; margin-top: .6rem; }
         .copy { font-size: .72rem; color: rgba(255,255,255,0.12); margin-top: .6rem; }
 
         /* ── ANIMACIONES ── */
         @keyframes pulseDot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(1.5); } }
         @keyframes fadeUp { from{ opacity:0; transform:translateY(28px); } to{ opacity:1; transform:translateY(0); } }
-
         .reveal { opacity: 0; transform: translateY(32px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .d1{ transition-delay:.08s; } .d2{ transition-delay:.16s; } .d3{ transition-delay:.24s; }
@@ -626,9 +357,6 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     NAVBAR
-════════════════════════════════════════════ -->
 <nav id="navbar">
     <a href="/" class="nav-logo">
         <div class="badge">IC</div>
@@ -647,15 +375,14 @@
     </button>
 </nav>
 
-<!-- MENÚ MÓVIL -->
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-overlay" onclick="closeMenu()"></div>
     <nav class="mobile-drawer">
-        <a href="#nosotros"     onclick="closeMenu()">📖 Nosotros</a>
+        <a href="#nosotros"      onclick="closeMenu()">📖 Nosotros</a>
         <a href="#certificacion" onclick="closeMenu()">🏛️ Certificación DC3</a>
-        <a href="#cursos"       onclick="closeMenu()">🎓 Cursos</a>
-        <a href="#proceso"      onclick="closeMenu()">📋 Proceso</a>
-        <a href="#contacto"     onclick="closeMenu()">✉️ Contacto</a>
+        <a href="#cursos"        onclick="closeMenu()">🎓 Cursos</a>
+        <a href="#proceso"       onclick="closeMenu()">📋 Proceso</a>
+        <a href="#contacto"      onclick="closeMenu()">✉️ Contacto</a>
         <div class="drawer-sep"></div>
         <a href="/accounts/login/" class="m-cta" onclick="closeMenu()">Acceso Alumnos →</a>
         <div class="drawer-badge">
@@ -666,17 +393,11 @@
     </nav>
 </div>
 
-
-<!-- ═══════════════════════════════════════════
-     HERO
-════════════════════════════════════════════ -->
 <section class="hero">
-    <!-- Circuito PCB decorativo -->
     <svg class="hero-pcb" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
         <defs>
             <pattern id="pcb-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M10 10 L50 10 L50 30 M30 10 L30 0 M50 30 L60 30 M10 40 L0 40 M10 10 L10 50 L40 50"
-                      fill="none" stroke="rgba(196,185,154,0.07)" stroke-width="0.8"/>
+                <path d="M10 10 L50 10 L50 30 M30 10 L30 0 M50 30 L60 30 M10 40 L0 40 M10 10 L10 50 L40 50" fill="none" stroke="rgba(196,185,154,0.07)" stroke-width="0.8"/>
                 <circle cx="10" cy="10" r="2" fill="none" stroke="rgba(196,185,154,0.1)" stroke-width="0.7"/>
                 <circle cx="50" cy="30" r="2" fill="none" stroke="rgba(196,185,154,0.1)" stroke-width="0.7"/>
                 <circle cx="40" cy="50" r="2" fill="none" stroke="rgba(196,185,154,0.1)" stroke-width="0.7"/>
@@ -687,7 +408,6 @@
         </defs>
         <rect width="100%" height="100%" fill="url(#pcb-grid)"/>
         <rect width="100%" height="100%" fill="url(#dot-grid)"/>
-        <!-- trazos de circuito -->
         <line x1="0" y1="180" x2="320" y2="180" stroke="rgba(100,140,255,0.06)" stroke-width="1"/>
         <line x1="320" y1="180" x2="320" y2="300" stroke="rgba(100,140,255,0.06)" stroke-width="1"/>
         <line x1="320" y1="300" x2="550" y2="300" stroke="rgba(100,140,255,0.06)" stroke-width="1"/>
@@ -705,7 +425,6 @@
         <circle cx="1100" cy="550" r="8"  fill="none" stroke="rgba(196,185,154,0.1)"  stroke-width="0.8"/>
     </svg>
     <div class="hero-glow"></div>
-
     <div class="hero-content">
         <div class="badge-cert">
             <div class="pulse"></div>
@@ -733,10 +452,6 @@
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     STATS
-════════════════════════════════════════════ -->
 <div class="stats-band">
     <div class="stats-inner">
         <div class="stat-item"><div class="stat-num" data-target="500" data-suffix="+">0</div><div class="stat-lbl">Profesionistas Formados</div></div>
@@ -746,10 +461,6 @@
     </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════════
-     NOSOTROS
-════════════════════════════════════════════ -->
 <section id="nosotros" class="sec">
     <div class="wrap">
         <div class="nosotros-grid reveal">
@@ -757,14 +468,8 @@
                 <div class="sec-label">Sobre Nosotros</div>
                 <div class="divider"></div>
                 <h2 class="sec-title">Líderes en tecnología<br>industrial del desierto</h2>
-                <p class="sec-sub">
-                    ICITEBC es el Instituto de Capacitación e Innovación Tecnológica de Baja California, con sede en Mexicali.
-                    Formamos a ingenieros, técnicos y profesionistas que impulsan la industria maquiladora y manufacturera de la región.
-                </p>
-                <p class="sec-sub" style="margin-top:.8rem;">
-                    Somos <strong style="color:var(--gold-dk);">Agente Capacitador y Evaluador reconocido por CONOCER</strong>
-                    bajo el estándar <strong>EC217.01</strong>, garantizando estándares nacionales de calidad educativa y competencia laboral.
-                </p>
+                <p class="sec-sub">ICITEBC es el Instituto de Capacitación e Innovación Tecnológica de Baja California, con sede en Mexicali. Formamos a ingenieros, técnicos y profesionistas que impulsan la industria maquiladora y manufacturera de la región.</p>
+                <p class="sec-sub" style="margin-top:.8rem;">Somos <strong style="color:var(--gold-dk);">Agente Capacitador y Evaluador reconocido por CONOCER</strong> bajo el estándar <strong>EC217.01</strong>, garantizando estándares nacionales de calidad educativa y competencia laboral.</p>
                 <div class="check-list">
                     <div class="check-item"><div class="check-dot"></div>Formación 100% práctica e industrial</div>
                     <div class="check-item"><div class="check-dot"></div>Instructores certificados por CONOCER</div>
@@ -773,58 +478,27 @@
                 </div>
             </div>
             <div class="mini-cards">
-                <div class="mini-card">
-                    <div class="icon">🏭</div>
-                    <div class="mc-title">Industria Real</div>
-                    <div class="mc-sub">Casos y proyectos de la zona industrial de Mexicali</div>
-                </div>
-                <div class="mini-card" style="margin-top:1.2rem;">
-                    <div class="icon">📋</div>
-                    <div class="mc-title">Oficio DC3</div>
-                    <div class="mc-sub">Tramitable ante la STPS al concluir el curso</div>
-                </div>
-                <div class="mini-card">
-                    <div class="icon">🎯</div>
-                    <div class="mc-title">EC217.01</div>
-                    <div class="mc-sub">Estándar CONOCER vigente</div>
-                </div>
-                <div class="mini-card" style="margin-top:1.2rem;">
-                    <div class="icon">🔬</div>
-                    <div class="mc-title">Laboratorio</div>
-                    <div class="mc-sub">Equipos industriales reales</div>
-                </div>
+                <div class="mini-card"><div class="icon">🏭</div><div class="mc-title">Industria Real</div><div class="mc-sub">Casos y proyectos de la zona industrial de Mexicali</div></div>
+                <div class="mini-card" style="margin-top:1.2rem;"><div class="icon">📋</div><div class="mc-title">Oficio DC3</div><div class="mc-sub">Tramitable ante la STPS al concluir el curso</div></div>
+                <div class="mini-card"><div class="icon">🎯</div><div class="mc-title">EC217.01</div><div class="mc-sub">Estándar CONOCER vigente</div></div>
+                <div class="mini-card" style="margin-top:1.2rem;"><div class="icon">🔬</div><div class="mc-title">Laboratorio</div><div class="mc-sub">Equipos industriales reales</div></div>
             </div>
         </div>
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     CERTIFICACIÓN
-════════════════════════════════════════════ -->
 <section id="certificacion" class="sec cert-bg">
     <div class="wrap">
         <div class="reveal" style="text-align:center;margin-bottom:3rem;">
             <div class="sec-label" style="justify-content:center;">Certificación Oficial</div>
             <h2 class="sec-title" style="font-size:clamp(1.9rem,4vw,3rem);">Respaldo gubernamental<br>en cada curso</h2>
-            <p class="sec-sub" style="margin:0 auto;text-align:center;">
-                Tus constancias tienen valor legal ante el gobierno federal a través del sistema oficial de la STPS.
-            </p>
+            <p class="sec-sub" style="margin:0 auto;text-align:center;">Tus constancias tienen valor legal ante el gobierno federal a través del sistema oficial de la STPS.</p>
         </div>
-
         <div class="dc3-banner reveal">
             <div>
                 <h3 class="dc3-title">¿Qué es el Oficio DC3?</h3>
-                <p class="dc3-text">
-                    El <strong style="color:#F5F0E8;">DC3 — Constancia de Competencias o de Habilidades Laborales</strong> es el documento oficial
-                    emitido por la Secretaría del Trabajo y Previsión Social (STPS) que acredita que un trabajador recibió
-                    capacitación en una competencia específica. Tiene valor legal en todo México y es requerido en auditorías
-                    laborales, certificaciones ISO y evaluaciones de RH.
-                </p>
-                <p class="dc3-text" style="margin-top:.7rem;">
-                    En ICITEBC <strong style="color:var(--gold);">asesoramos en el proceso de tramitación del Oficio DC3 al concluir tu curso</strong>.
-                    Este proceso tiene un costo independiente que nuestro equipo te explica con detalle al finalizar.
-                </p>
+                <p class="dc3-text">El <strong style="color:#F5F0E8;">DC3 — Constancia de Competencias o de Habilidades Laborales</strong> es el documento oficial emitido por la Secretaría del Trabajo y Previsión Social (STPS) que acredita que un trabajador recibió capacitación en una competencia específica. Tiene valor legal en todo México y es requerido en auditorías laborales, certificaciones ISO y evaluaciones de RH.</p>
+                <p class="dc3-text" style="margin-top:.7rem;">En ICITEBC <strong style="color:var(--gold);">asesoramos en el proceso de tramitación del Oficio DC3 al concluir tu curso</strong>. Este proceso tiene un costo independiente que nuestro equipo te explica con detalle al finalizar.</p>
                 <div class="dc3-tags">
                     <span class="dc3-tag">✓ Válido a nivel nacional</span>
                     <span class="dc3-tag">✓ Ante STPS</span>
@@ -834,12 +508,8 @@
                     <span class="dc3-tag">✓ Deducible de impuestos</span>
                 </div>
             </div>
-            <div class="dc3-stamp">
-                <div class="big">DC3</div>
-                <div class="tiny">Oficio<br>Oficial<br>STPS</div>
-            </div>
+            <div class="dc3-stamp"><div class="big">DC3</div><div class="tiny">Oficio<br>Oficial<br>STPS</div></div>
         </div>
-
         <div class="conocer-grid reveal">
             <div class="cc"><div class="cc-icon">🏛️</div><h3>¿Qué es CONOCER?</h3><p>Organismo de la SEP que certifica competencias laborales en México bajo estándares nacionales reconocidos por la Secretaría del Trabajo.</p></div>
             <div class="cc"><div class="cc-icon">🎓</div><h3>Somos Agente Capacitador</h3><p>ICITEBC es <strong>Agente Capacitador y Evaluador (ACE)</strong> ante CONOCER. Nuestros cursos están aprobados por el gobierno federal.</p></div>
@@ -849,21 +519,13 @@
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     CURSOS
-════════════════════════════════════════════ -->
 <section id="cursos" class="sec">
     <div class="wrap">
         <div class="reveal" style="margin-bottom:2.5rem;">
             <div class="sec-label">Programas</div>
             <h2 class="sec-title">Catálogo de Especialización</h2>
-            <p class="sec-sub">
-                Haz clic en cualquier tarjeta para expandirla y ver más detalles.
-                Cada curso incluye acceso al temario completo.
-            </p>
+            <p class="sec-sub">Haz clic en cualquier tarjeta para expandirla y ver más detalles. Cada curso incluye acceso al temario completo.</p>
         </div>
-
         <div class="carrusel-wrapper reveal">
             <button class="carrusel-btn carrusel-prev" id="btnPrev" onclick="moverCarrusel(-1)" aria-label="Anterior">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
@@ -871,7 +533,6 @@
             <button class="carrusel-btn carrusel-next" id="btnNext" onclick="moverCarrusel(1)" aria-label="Siguiente">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-
             <div class="carrusel-track" id="carruselTrack">
                 {% for curso in cursos %}
                 <div class="curso-card" tabindex="0" role="button" aria-expanded="false" data-slug="{{ curso.slug }}">
@@ -884,40 +545,22 @@
                             </div>
                         {% endif %}
                     </div>
-
                     <div class="curso-body">
-                        {% if curso.categoria %}
-                            <div class="curso-cat">{{ curso.categoria }}</div>
-                        {% endif %}
+                        {% if curso.categoria %}<div class="curso-cat">{{ curso.categoria }}</div>{% endif %}
                         <h3>{{ curso.titulo }}</h3>
-                        <p class="curso-desc">
-                            {% if curso.descripcion_corta %}
-                                {{ curso.descripcion_corta }}
-                            {% else %}
-                                {{ curso.descripcion }}
-                            {% endif %}
-                        </p>
-
-                        <!-- Botones visibles al expandir -->
+                        <p class="curso-desc">{% if curso.descripcion_corta %}{{ curso.descripcion_corta }}{% else %}{{ curso.descripcion }}{% endif %}</p>
                         <div class="curso-actions">
                             <a href="{% url 'curso_publico' curso.slug %}" class="btn-temario">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                                 Ver temario completo
                             </a>
-                            <a href="#contacto" class="btn-temario-outline">
-                                Más información
-                            </a>
+                            <a href="#contacto" class="btn-temario-outline">Más información</a>
                         </div>
                     </div>
-
                     <div class="curso-foot">
-                        <div style="font-size:.72rem;color:var(--text-muted);font-weight:500;">
-                            Precio: consultar
-                        </div>
+                        <div style="font-size:.72rem;color:var(--text-muted);font-weight:500;">Precio: consultar</div>
                         <div class="curso-expand-note">Ver más</div>
-                        <svg class="curso-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
+                        <svg class="curso-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
                     </div>
                 </div>
                 {% empty %}
@@ -925,26 +568,14 @@
                 {% endfor %}
             </div>
         </div>
-
         <div class="carrusel-dots" id="carruselDots"></div>
-
-        <!-- Nota DC3 -->
         <div class="dc3-notice reveal">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9A7A20" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <div class="dc3-notice-text">
-                <strong>Nota sobre el Oficio DC3:</strong>
-                Los precios de los cursos corresponden únicamente a la capacitación.
-                La tramitación del Oficio DC3 ante la STPS es un proceso independiente con costo aparte —
-                nuestro equipo te explica todos los detalles personalmente al finalizar tu curso.
-            </div>
+            <div class="dc3-notice-text"><strong>Nota sobre el Oficio DC3:</strong> Los precios de los cursos corresponden únicamente a la capacitación. La tramitación del Oficio DC3 ante la STPS es un proceso independiente con costo aparte — nuestro equipo te explica todos los detalles personalmente al finalizar tu curso.</div>
         </div>
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     PROCESO
-════════════════════════════════════════════ -->
 <section id="proceso" class="sec proceso-bg">
     <div class="wrap">
         <div class="reveal" style="text-align:center;margin-bottom:3.5rem;">
@@ -960,10 +591,6 @@
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     TESTIMONIALES
-════════════════════════════════════════════ -->
 <section class="sec">
     <div class="wrap">
         <div class="reveal" style="text-align:center;margin-bottom:3rem;">
@@ -971,54 +598,28 @@
             <h2 class="sec-title" style="font-size:clamp(1.9rem,4vw,3rem);">Lo que dicen nuestros alumnos</h2>
         </div>
         <div class="test-grid">
-            <div class="test-card reveal d1">
-                <p>La capacitación en SolidWorks superó mis expectativas. Los instructores conocen la realidad industrial de Mexicali. El DC3 me abrió puertas en dos maquiladoras del parque industrial.</p>
-                <div class="test-author">
-                    <div class="test-av">JR</div>
-                    <div>
-                        <div class="test-name">José Ramírez</div>
-                        <div class="test-role">Ing. Manufactura · Industrial Mexicali</div>
-                    </div>
-                </div>
-            </div>
-            <div class="test-card reveal d2">
-                <p>Como empresa, la capacitación de nuestro equipo con ICITEBC fue una inversión que se ve en productividad. El proceso de obtener los DC3 fue rápido y sin complicaciones.</p>
-                <div class="test-author">
-                    <div class="test-av">AL</div>
-                    <div>
-                        <div class="test-name">Ana Leyva</div>
-                        <div class="test-role">Gerente de RH · Empresa Maquiladora BC</div>
-                    </div>
-                </div>
-            </div>
-            <div class="test-card reveal d3">
-                <p>El curso de IoT con ESP32 fue excelente. En semanas tenía un sistema de monitoreo funcionando en mi área. El asesoramiento para el Oficio DC3 fue muy claro y profesional.</p>
-                <div class="test-author">
-                    <div class="test-av">CR</div>
-                    <div>
-                        <div class="test-name">Carlos Rentera</div>
-                        <div class="test-role">Técnico en Automatización · Tecate BC</div>
-                    </div>
-                </div>
-            </div>
+            <div class="test-card reveal d1"><p>La capacitación en SolidWorks superó mis expectativas. Los instructores conocen la realidad industrial de Mexicali. El DC3 me abrió puertas en dos maquiladoras del parque industrial.</p><div class="test-author"><div class="test-av">JR</div><div><div class="test-name">José Ramírez</div><div class="test-role">Ing. Manufactura · Industrial Mexicali</div></div></div></div>
+            <div class="test-card reveal d2"><p>Como empresa, la capacitación de nuestro equipo con ICITEBC fue una inversión que se ve en productividad. El proceso de obtener los DC3 fue rápido y sin complicaciones.</p><div class="test-author"><div class="test-av">AL</div><div><div class="test-name">Ana Leyva</div><div class="test-role">Gerente de RH · Empresa Maquiladora BC</div></div></div></div>
+            <div class="test-card reveal d3"><p>El curso de IoT con ESP32 fue excelente. En semanas tenía un sistema de monitoreo funcionando en mi área. El asesoramiento para el Oficio DC3 fue muy claro y profesional.</p><div class="test-author"><div class="test-av">CR</div><div><div class="test-name">Carlos Rentera</div><div class="test-role">Técnico en Automatización · Tecate BC</div></div></div></div>
         </div>
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     CONTACTO
-════════════════════════════════════════════ -->
 <section id="contacto" class="sec" style="padding-top:2rem;">
     <div class="wrap" style="max-width:820px;">
         <div class="contact-box reveal">
             <div style="text-align:center;margin-bottom:2.5rem;">
                 <div class="sec-label" style="justify-content:center;">Contacto</div>
                 <h2 class="sec-title" style="font-size:clamp(1.9rem,4vw,2.8rem);">¿Listo para certificarte?</h2>
-                <p class="sec-sub" style="text-align:center;margin:0 auto;">
-                    Un especialista de ICITEBC te orientará sobre el curso y el proceso de DC3 ideal para ti o tu empresa.
-                </p>
+                <p class="sec-sub" style="text-align:center;margin:0 auto;">Un especialista de ICITEBC te orientará sobre el curso y el proceso de DC3 ideal para ti o tu empresa.</p>
             </div>
+
+            {% if error %}
+            <div class="success-msg" style="background:#FFF0F0;border-color:#FFAAAA;color:#8B0000;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                {{ error }}
+            </div>
+            {% endif %}
 
             {% if enviado %}
             <div class="success-msg">
@@ -1031,31 +632,27 @@
                 {% csrf_token %}
                 <div>
                     <label class="f-label">Nombre completo</label>
-                    <input type="text" name="nombre" required placeholder="Ej. Juan García" class="f-input">
+                    <input type="text" name="nombre" required placeholder="Ej. Juan García" class="f-input" autocomplete="name">
                 </div>
                 <div>
                     <label class="f-label">Correo electrónico</label>
-                    <input type="email" name="email" required placeholder="tu@correo.com" class="f-input">
+                    <input type="email" name="email" required placeholder="tu@correo.com" class="f-input" autocomplete="email">
                 </div>
                 <div>
                     <label class="f-label">Teléfono (opcional)</label>
-                    <input type="tel" name="telefono" placeholder="686 000 0000" class="f-input">
+                    <input type="tel" name="telefono" placeholder="686 000 0000" class="f-input" autocomplete="tel">
                 </div>
                 <div>
                     <label class="f-label">Curso de interés</label>
                     <select name="curso_interes" class="f-input" style="cursor:pointer;">
                         <option value="" disabled selected>Seleccionar...</option>
-                        {% for curso in cursos %}
-                            <option value="{{ curso.slug }}">{{ curso.titulo }}</option>
-                        {% endfor %}
+                        {% for curso in cursos %}<option value="{{ curso.slug }}">{{ curso.titulo }}</option>{% endfor %}
                         <option value="otro">Otro / No sé aún</option>
                     </select>
                 </div>
                 <div style="grid-column:1/-1;">
                     <label class="f-label">Mensaje</label>
-                    <textarea name="mensaje" required rows="4"
-                        placeholder="Cuéntanos sobre tu necesidad o la de tu empresa..."
-                        class="f-input" style="resize:vertical;"></textarea>
+                    <textarea name="mensaje" required rows="4" placeholder="Cuéntanos sobre tu necesidad o la de tu empresa..." class="f-input" style="resize:vertical;"></textarea>
                 </div>
                 <div style="grid-column:1/-1;">
                     <button type="submit" class="submit-btn">Solicitar Información sobre Cursos y DC3</button>
@@ -1063,36 +660,14 @@
             </form>
 
             <div class="contact-meta">
-                <div class="cm-item">
-                    <div class="cm-icon">📍</div>
-                    <div>
-                        <div class="cm-lbl">Ubicación</div>
-                        <div class="cm-val">Calzada Anáhuac, Mexicali<br>Baja California</div>
-                    </div>
-                </div>
-                <div class="cm-item">
-                    <div class="cm-icon">🏛️</div>
-                    <div>
-                        <div class="cm-lbl">Registro Oficial</div>
-                        <div class="cm-val">Agente Capacitador CONOCER<br>Estándar EC217.01</div>
-                    </div>
-                </div>
-                <div class="cm-item">
-                    <div class="cm-icon">📄</div>
-                    <div>
-                        <div class="cm-lbl">Constancias DC3</div>
-                        <div class="cm-val">Tramitación disponible<br>al concluir cada curso</div>
-                    </div>
-                </div>
+                <div class="cm-item"><div class="cm-icon">📍</div><div><div class="cm-lbl">Ubicación</div><div class="cm-val">Calzada Anáhuac, Mexicali<br>Baja California</div></div></div>
+                <div class="cm-item"><div class="cm-icon">🏛️</div><div><div class="cm-lbl">Registro Oficial</div><div class="cm-val">Agente Capacitador CONOCER<br>Estándar EC217.01</div></div></div>
+                <div class="cm-item"><div class="cm-icon">📄</div><div><div class="cm-lbl">Constancias DC3</div><div class="cm-val">Tramitación disponible<br>al concluir cada curso</div></div></div>
             </div>
         </div>
     </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════ -->
 <footer>
     <div class="footer-logo">ICITEBC Mexicali</div>
     <div class="footer-links">
@@ -1111,16 +686,10 @@
     <p class="copy">© 2025 ICITEBC · Todos los derechos reservados</p>
 </footer>
 
-
-<!-- ═══════════════════════════════════════════
-     JAVASCRIPT
-════════════════════════════════════════════ -->
 <script>
-    /* ── Navbar scroll ── */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 50));
 
-    /* ── Menú móvil ── */
     const menu = document.getElementById('mobileMenu');
     const hamb = document.getElementById('hamburger');
     function toggleMenu() {
@@ -1135,20 +704,17 @@
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-    /* ── Reveal on scroll ── */
     function revealCheck() {
         document.querySelectorAll('.reveal').forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight - 70)
-                el.classList.add('active');
+            if (el.getBoundingClientRect().top < window.innerHeight - 70) el.classList.add('active');
         });
     }
     window.addEventListener('scroll', revealCheck);
     revealCheck();
 
-    /* ── Contadores animados ── */
     function runCounters() {
         document.querySelectorAll('.stat-num[data-target]').forEach(el => {
-            const tgt    = +el.dataset.target;
+            const tgt = +el.dataset.target;
             const suffix = el.dataset.suffix || '';
             let cur = 0;
             const step = tgt / 120;
@@ -1166,9 +732,6 @@
         }, { threshold: 0.3 }).observe(statsBand);
     }
 
-    /* ══════════════════════════════
-       CARRUSEL
-    ══════════════════════════════ */
     (function () {
         const track   = document.getElementById('carruselTrack');
         const dotsEl  = document.getElementById('carruselDots');
@@ -1176,47 +739,23 @@
         const btnNext = document.getElementById('btnNext');
         const wrapper = document.querySelector('.carrusel-wrapper');
         if (!track || !wrapper) return;
-
         let cards = Array.from(track.querySelectorAll('.curso-card'));
         if (!cards.length) return;
-
         const GAP = 21;
-        let currentTranslate = 0;
-        let maxTranslate = 0;
-
+        let currentTranslate = 0, maxTranslate = 0;
         function calcMax() { maxTranslate = Math.max(0, track.scrollWidth - wrapper.clientWidth); }
-        function setTranslate(v) {
-            calcMax();
-            currentTranslate = Math.max(0, Math.min(v, maxTranslate));
-            track.style.transform = `translateX(-${currentTranslate}px)`;
-            updateBtns(); updateDots();
-        }
-        function centerCard(card) {
-            calcMax();
-            const target = card.offsetLeft - ((wrapper.clientWidth - card.offsetWidth) / 2);
-            setTranslate(target);
-        }
-        function scrollByOne(dir) {
-            const ref = cards.find(c => !c.classList.contains('abierto')) || cards[0];
-            setTranslate(currentTranslate + dir * (ref.offsetWidth + GAP));
-        }
-        function updateBtns() {
-            if (btnPrev) btnPrev.disabled = currentTranslate <= 2;
-            if (btnNext) btnNext.disabled = currentTranslate >= maxTranslate - 2;
-        }
+        function setTranslate(v) { calcMax(); currentTranslate = Math.max(0, Math.min(v, maxTranslate)); track.style.transform = `translateX(-${currentTranslate}px)`; updateBtns(); updateDots(); }
+        function centerCard(card) { calcMax(); setTranslate(card.offsetLeft - ((wrapper.clientWidth - card.offsetWidth) / 2)); }
+        function scrollByOne(dir) { const ref = cards.find(c => !c.classList.contains('abierto')) || cards[0]; setTranslate(currentTranslate + dir * (ref.offsetWidth + GAP)); }
+        function updateBtns() { if (btnPrev) btnPrev.disabled = currentTranslate <= 2; if (btnNext) btnNext.disabled = currentTranslate >= maxTranslate - 2; }
         function buildDots() {
-            if (!dotsEl) return;
-            dotsEl.innerHTML = '';
-            calcMax();
+            if (!dotsEl) return; dotsEl.innerHTML = ''; calcMax();
             const total = Math.max(1, Math.round(track.scrollWidth / wrapper.clientWidth));
             for (let i = 0; i < total; i++) {
                 const d = document.createElement('button');
                 d.className = 'carrusel-dot' + (i === 0 ? ' active' : '');
                 d.setAttribute('aria-label', 'Posición ' + (i + 1));
-                d.addEventListener('click', () => {
-                    const ratio = total === 1 ? 0 : i / (total - 1);
-                    setTranslate(maxTranslate * ratio);
-                });
+                d.addEventListener('click', () => { const ratio = total === 1 ? 0 : i / (total - 1); setTranslate(maxTranslate * ratio); });
                 dotsEl.appendChild(d);
             }
         }
@@ -1228,88 +767,45 @@
             if (maxTranslate > 0) idx = Math.round((currentTranslate / maxTranslate) * (dots.length - 1));
             dots.forEach((d, i) => d.classList.toggle('active', i === idx));
         }
-
         window.moverCarrusel = dir => scrollByOne(dir);
-
-        /* Drag / swipe */
         let dragging = false, dragStartX = 0, startTranslate = 0;
-        track.addEventListener('mousedown', e => {
-            dragging = true; dragStartX = e.clientX; startTranslate = currentTranslate;
-            track.style.transition = 'none';
-        });
-        window.addEventListener('mousemove', e => {
-            if (!dragging) return;
-            calcMax();
-            currentTranslate = Math.max(0, Math.min(startTranslate - (e.clientX - dragStartX), maxTranslate));
-            track.style.transform = `translateX(-${currentTranslate}px)`;
-        });
-        function endDrag() {
-            if (!dragging) return; dragging = false;
-            track.style.transition = 'transform .45s cubic-bezier(.16,1,.3,1)';
-            setTranslate(currentTranslate);
-        }
+        track.addEventListener('mousedown', e => { dragging = true; dragStartX = e.clientX; startTranslate = currentTranslate; track.style.transition = 'none'; });
+        window.addEventListener('mousemove', e => { if (!dragging) return; calcMax(); currentTranslate = Math.max(0, Math.min(startTranslate - (e.clientX - dragStartX), maxTranslate)); track.style.transform = `translateX(-${currentTranslate}px)`; });
+        function endDrag() { if (!dragging) return; dragging = false; track.style.transition = 'transform .45s cubic-bezier(.16,1,.3,1)'; setTranslate(currentTranslate); }
         window.addEventListener('mouseup', endDrag);
         let touchStartX = 0;
         track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-        track.addEventListener('touchend', e => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 40) scrollByOne(dx < 0 ? 1 : -1);
-        });
-
-        function recalcAll() {
-            cards = Array.from(track.querySelectorAll('.curso-card'));
-            calcMax(); buildDots(); setTranslate(currentTranslate);
-        }
+        track.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchStartX; if (Math.abs(dx) > 40) scrollByOne(dx < 0 ? 1 : -1); });
+        function recalcAll() { cards = Array.from(track.querySelectorAll('.curso-card')); calcMax(); buildDots(); setTranslate(currentTranslate); }
         recalcAll();
         window.addEventListener('resize', () => { recalcAll(); centerOpenedCard(); });
-
-        window.__centerCursoCard  = card => centerCard(card);
-        window.__refreshCarrusel  = () => { recalcAll(); centerOpenedCard(); };
-
-        function centerOpenedCard() {
-            const open = track.querySelector('.curso-card.abierto');
-            if (open) centerCard(open); else setTranslate(currentTranslate);
-        }
+        window.__centerCursoCard = card => centerCard(card);
+        window.__refreshCarrusel = () => { recalcAll(); centerOpenedCard(); };
+        function centerOpenedCard() { const open = track.querySelector('.curso-card.abierto'); if (open) centerCard(open); else setTranslate(currentTranslate); }
     })();
 
-    /* ══════════════════════════════
-       TARJETAS EXPANDIBLES
-    ══════════════════════════════ */
     function cerrarTodas() {
         document.querySelectorAll('.curso-card.abierto').forEach(c => {
-            c.classList.remove('abierto');
-            c.setAttribute('aria-expanded', 'false');
-            const note = c.querySelector('.curso-expand-note');
-            if (note) note.textContent = 'Ver más';
+            c.classList.remove('abierto'); c.setAttribute('aria-expanded', 'false');
+            const note = c.querySelector('.curso-expand-note'); if (note) note.textContent = 'Ver más';
         });
     }
     function abrirTarjeta(card) {
         const estabaAbierta = card.classList.contains('abierto');
         cerrarTodas();
         if (!estabaAbierta) {
-            card.classList.add('abierto');
-            card.setAttribute('aria-expanded', 'true');
-            const note = card.querySelector('.curso-expand-note');
-            if (note) note.textContent = 'Cerrar';
-            setTimeout(() => {
-                if (window.__refreshCarrusel) window.__refreshCarrusel();
-                if (window.__centerCursoCard) window.__centerCursoCard(card);
-            }, 260);
+            card.classList.add('abierto'); card.setAttribute('aria-expanded', 'true');
+            const note = card.querySelector('.curso-expand-note'); if (note) note.textContent = 'Cerrar';
+            setTimeout(() => { if (window.__refreshCarrusel) window.__refreshCarrusel(); if (window.__centerCursoCard) window.__centerCursoCard(card); }, 260);
         } else {
             setTimeout(() => { if (window.__refreshCarrusel) window.__refreshCarrusel(); }, 220);
         }
     }
-
     document.querySelectorAll('.curso-card').forEach(card => {
-        card.addEventListener('click', e => {
-            /* Si el clic fue en un enlace interno, no expandir/colapsar */
-            if (e.target.closest('a')) return;
-            abrirTarjeta(card);
-        });
-        card.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirTarjeta(card); }
-        });
+        card.addEventListener('click', e => { if (e.target.closest('a')) return; abrirTarjeta(card); });
+        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirTarjeta(card); } });
     });
 </script>
 </body>
 </html>
+```

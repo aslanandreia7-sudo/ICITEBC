@@ -1,99 +1,56 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
 
 # --- MODELOS DE USUARIO Y CONTACTO ---
 
 class Alumno(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    departamento = models.CharField(max_length=100)
+    user                 = models.OneToOneField(User, on_delete=models.CASCADE)
+    departamento         = models.CharField(max_length=100)
     correo_institucional = models.EmailField(unique=True)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
+    fecha_registro       = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} - {self.departamento}"
 
+
 class Contacto(models.Model):
-    nombre = models.CharField(max_length=100)
-    email = models.EmailField()
-    mensaje = models.TextField()
-    fecha = models.DateTimeField(auto_now_add=True)
+    nombre   = models.CharField(max_length=100)
+    email    = models.EmailField()
+    telefono = models.CharField(max_length=20, blank=True)
+    mensaje  = models.TextField(max_length=2000)
+    fecha    = models.DateTimeField(auto_now_add=True)
+    leido    = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Mensaje de {self.nombre} - {self.email}"
+        return f"Mensaje de {self.nombre} ({self.fecha.strftime('%Y-%m-%d')})"
 
 
 # --- CATÁLOGO DE CURSOS ---
 
 class Curso(models.Model):
-    # ── Campos originales ──────────────────────────────────────────────
-    titulo               = models.CharField(max_length=200)
-    slug                 = models.SlugField(unique=True)
-    descripcion          = models.TextField()
-    imagen               = models.ImageField(upload_to='cursos/', blank=True, null=True)
-    precio               = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    activo               = models.BooleanField(default=True)
-    orden                = models.PositiveIntegerField(default=0)
-    categoria            = models.CharField(max_length=100, blank=True, help_text="Ej: Electrónica, IoT, CAD")
-    descripcion_corta    = models.CharField(max_length=200, blank=True, help_text="Texto corto para la tarjeta del catálogo")
-
-    # ── Nuevos: información general para la página pública ────────────
-    descripcion_larga    = models.TextField(
-        blank=True,
-        help_text="Descripción completa para la página del curso (soporta saltos de línea)"
-    )
-    duracion             = models.CharField(
-        max_length=100, blank=True,
-        help_text="Ej: 8 horas — 2 días × 4 horas"
-    )
-    modalidad            = models.CharField(
-        max_length=100, blank=True,
-        help_text="Ej: Presencial"
-    )
-    nivel                = models.CharField(
-        max_length=100, blank=True,
-        help_text="Ej: Desde cero (requiere manejo básico de PC)"
-    )
-    dirigido_a           = models.CharField(
-        max_length=300, blank=True,
-        help_text="Ej: Estudiantes, egresados y público general"
-    )
-    cupo_maximo          = models.PositiveIntegerField(
-        default=8,
-        help_text="Número máximo de alumnos por grupo"
-    )
-    fecha_proxima        = models.CharField(
-        max_length=200, blank=True,
-        help_text="Ej: 30 jun & 1 jul 2025 · 4:00 pm – 8:00 pm"
-    )
-
-    # ── Nuevos: precios para la página pública ────────────────────────
-    precio_general       = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0,
-        help_text="Precio público general en MXN"
-    )
-    precio_descuento     = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0,
-        help_text="Precio con descuento en MXN (0 = no mostrar)"
-    )
-    precio_descuento_label = models.CharField(
-        max_length=150, blank=True,
-        help_text="Ej: Alumnos & Egresados UPBC — 20% dto."
-    )
-    anticipo             = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0,
-        help_text="Monto del anticipo para apartar lugar en MXN"
-    )
-
-    # ── Nuevos: contacto / WhatsApp ───────────────────────────────────
-    whatsapp_numero      = models.CharField(
-        max_length=20, blank=True,
-        default='5216861373064',
-        help_text="Número con clave de país sin + ni espacios. Ej: 5216861373064"
-    )
-    whatsapp_mensaje     = models.CharField(
-        max_length=400, blank=True,
-        help_text="Mensaje pre-llenado. Deja vacío para usar el mensaje automático con el nombre del curso."
-    )
+    titulo                 = models.CharField(max_length=200)
+    slug                   = models.SlugField(unique=True)
+    descripcion            = models.TextField()
+    imagen                 = models.ImageField(upload_to='cursos/', blank=True, null=True)
+    precio                 = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    activo                 = models.BooleanField(default=True)
+    orden                  = models.PositiveIntegerField(default=0)
+    categoria              = models.CharField(max_length=100, blank=True)
+    descripcion_corta      = models.CharField(max_length=200, blank=True)
+    descripcion_larga      = models.TextField(blank=True)
+    duracion               = models.CharField(max_length=100, blank=True)
+    modalidad              = models.CharField(max_length=100, blank=True)
+    nivel                  = models.CharField(max_length=100, blank=True)
+    dirigido_a             = models.CharField(max_length=300, blank=True)
+    cupo_maximo            = models.PositiveIntegerField(default=8)
+    fecha_proxima          = models.CharField(max_length=200, blank=True)
+    precio_general         = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    precio_descuento       = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    precio_descuento_label = models.CharField(max_length=150, blank=True)
+    anticipo               = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    whatsapp_numero        = models.CharField(max_length=20, blank=True)
+    whatsapp_mensaje       = models.CharField(max_length=400, blank=True)
 
     class Meta:
         ordering = ['orden', 'titulo']
@@ -105,14 +62,15 @@ class Curso(models.Model):
         return Clase.objects.filter(seccion__modulo__curso=self).count()
 
     def get_whatsapp_url(self):
-        """Genera la URL de WhatsApp con mensaje pre-llenado."""
-        numero  = self.whatsapp_numero or '5216861373064'
+        from urllib.parse import quote
+        numero  = self.whatsapp_numero or os.environ.get('WHATSAPP_NUMERO', '')
+        if not numero:
+            return '#'
         mensaje = self.whatsapp_mensaje or (
             f"Hola, me interesa apartar mi lugar en el curso: "
             f"*{self.titulo}*. ¿Me pueden dar información sobre "
             f"fechas y formas de pago?"
         )
-        from urllib.parse import quote
         return f"https://wa.me/{numero}?text={quote(mensaje)}"
 
 
@@ -152,16 +110,16 @@ class Clase(models.Model):
         ('pdf',           '📄 Archivo PDF'),
         ('texto',         '📝 Texto / Descripción'),
     )
-    seccion           = models.ForeignKey(Seccion, on_delete=models.CASCADE, related_name='clases')
-    titulo            = models.CharField(max_length=200)
-    tipo              = models.CharField(max_length=20, choices=TIPO_CHOICES)
-    orden             = models.PositiveIntegerField(default=0)
-    es_gratis         = models.BooleanField(default=False, help_text="Visible sin inscripción")
-    video_url         = models.URLField(blank=True, null=True, help_text="URL de YouTube o cualquier video")
-    video_archivo     = models.FileField(upload_to='clases/videos/', blank=True, null=True)
-    pdf_archivo       = models.FileField(upload_to='clases/pdfs/', blank=True, null=True)
-    texto             = models.TextField(blank=True, null=True, help_text="Contenido en texto o HTML")
-    duracion_minutos  = models.PositiveIntegerField(default=0, help_text="Duración en minutos (opcional)")
+    seccion          = models.ForeignKey(Seccion, on_delete=models.CASCADE, related_name='clases')
+    titulo           = models.CharField(max_length=200)
+    tipo             = models.CharField(max_length=20, choices=TIPO_CHOICES)
+    orden            = models.PositiveIntegerField(default=0)
+    es_gratis        = models.BooleanField(default=False)
+    video_url        = models.URLField(blank=True, null=True)
+    video_archivo    = models.FileField(upload_to='clases/videos/', blank=True, null=True)
+    pdf_archivo      = models.FileField(upload_to='clases/pdfs/', blank=True, null=True)
+    texto            = models.TextField(blank=True, null=True)
+    duracion_minutos = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['orden']
@@ -174,8 +132,10 @@ class Clase(models.Model):
 
 class Inscripcion(models.Model):
     ESTADOS = (
-        ('pendiente', 'Esperando Aprobación'),
-        ('aprobado',  'Activo'),
+        ('pendiente',  'Esperando Aprobación'),
+        ('aprobado',   'Activo'),
+        ('cancelado',  'Cancelado'),
+        ('bloqueado',  'Bloqueado'),
     )
     estudiante        = models.ForeignKey(User, on_delete=models.CASCADE)
     curso             = models.ForeignKey(Curso, on_delete=models.CASCADE)
@@ -186,7 +146,7 @@ class Inscripcion(models.Model):
         unique_together = ('estudiante', 'curso')
 
     def __str__(self):
-        return f"{self.estudiante.username} en {self.curso.titulo}"
+        return f"{self.estudiante.username} en {self.curso.titulo} [{self.estado}]"
 
     def progreso(self):
         total = self.curso.total_clases()
@@ -208,4 +168,5 @@ class ProgresoClase(models.Model):
         unique_together = ('inscripcion', 'clase')
 
     def __str__(self):
-        return f"{self.inscripcion.estudiante.username} - {self.clase.titulo} ({'✓' if self.completada else '○'})"
+        estado = '✓' if self.completada else '○'
+        return f"{self.inscripcion.estudiante.username} - {self.clase.titulo} ({estado})"

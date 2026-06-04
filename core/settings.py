@@ -5,25 +5,17 @@ Django settings for core project.
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from dotenv import load_dotenv
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# --- SEGURIDAD PRINCIPAL ---
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cambia-esto-solo-para-dev-local')
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'icitebc.lat', 'www.icitebc.lat', 'icitebc.onrender.com']
 
-# --- CONFIGURACIÓN DE SEGURIDAD ---
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z*8n4vxvpi4y+cdsx@rq@r9hm+t*f=zvy!n+w-^i%_imtr$vrf'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# CAMBIADO A TRUE PARA DESARROLLO LOCAL
-DEBUG = True
-
-# AGREGADOS 127.0.0.1 Y LOCALHOST PARA QUE NO DE ERROR 400 EN TU PC
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'icitebc.lat', 'www.icitebc.lat', '.onrender.com']
-
-
-# --- DEFINICIÓN DE APLICACIONES ---
-
+# --- APLICACIONES ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,12 +23,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'plataforma',  # Tu aplicación principal
+    'plataforma',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para servir archivos en Render
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -50,7 +42,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Directorio global de templates
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,9 +56,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # --- BASE DE DATOS ---
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,9 +64,7 @@ DATABASES = {
     }
 }
 
-
-# --- VALIDACIÓN DE CONTRASEÑAS ---
-
+# --- CONTRASEÑAS ---
 AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator' },
     { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator' },
@@ -84,39 +72,54 @@ AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator' },
 ]
 
-
 # --- INTERNACIONALIZACIÓN ---
-
-LANGUAGE_CODE = 'es-mx' # Cambiado a español de México
-
-TIME_ZONE = 'America/Tijuana' # Ajustado a tu zona horaria
-
+LANGUAGE_CODE = 'es-mx'
+TIME_ZONE = 'America/Tijuana'
 USE_I18N = True
-
 USE_TZ = True
 
-
-# --- ARCHIVOS ESTÁTICOS (CSS, JS, IMÁGENES) ---
-
+# --- ARCHIVOS ESTÁTICOS ---
 STATIC_URL = '/static/'
-
-# Donde se guardan tus archivos de diseño originales
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-# Carpeta donde Django junta todo para producción (Render)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Configuración de WhiteNoise para que no falle si falta algún archivo
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# --- ARCHIVOS SUBIDOS POR USUARIOS (imágenes, PDFs, videos) ---
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# --- REDIRECCIONES DE LOGIN ---
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/accounts/login/'
+
+# --- HEADERS DE SEGURIDAD (solo en producción) ---
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_BROWSER_XSS_FILTER = True
+
+# --- LOGGING DE SEGURIDAD ---
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'security.log'),
+        },
+    },
+    'loggers': {
+        'django.security': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
