@@ -2,10 +2,10 @@ services:
   - type: web
     name: icitebc-app
     env: python
-    plan: free  # <--- AGREGA ESTA LÍNEA AQUÍ
+    plan: free
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py collectstatic --no-input
+      python manage.py collectstatic --clear --no-input
       python manage.py migrate
     startCommand: gunicorn core.wsgi:application
     envVars:
@@ -13,5 +13,7 @@ services:
         value: 3.13.7
       - key: DJANGO_SETTINGS_MODULE
         value: core.settings
-      - key: SECRET_KEY
+      - key: DJANGO_SECRET_KEY
         generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"

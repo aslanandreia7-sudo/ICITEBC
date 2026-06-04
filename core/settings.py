@@ -28,6 +28,7 @@ ALLOWED_HOSTS = [
     'icitebc.lat',
     'www.icitebc.lat',
     'icitebc.onrender.com',
+    'icitebc-app.onrender.com',
 ]
 
 # =====================================================
