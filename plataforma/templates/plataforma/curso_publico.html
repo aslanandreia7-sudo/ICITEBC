@@ -24,6 +24,7 @@
             --text-muted: #9A9080;
             --wa-green:   #25D366;
         }
+
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
@@ -35,96 +36,134 @@
         }
         h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
 
+        /* ─── NAVBAR ─── */
         .navbar {
             position: sticky; top: 0; z-index: 100;
             background: rgba(8,10,20,0.96);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(196,185,154,0.12);
-            padding: .85rem 2rem;
+            padding: .75rem 1.25rem;
             display: flex; align-items: center; justify-content: space-between;
+            gap: .5rem;
         }
-        .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+        .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; flex-shrink: 0; }
         .nav-badge {
             width: 30px; height: 30px; border-radius: 6px;
             background: var(--gold); display: flex; align-items: center;
             justify-content: center; font-weight: 700; font-size: .72rem;
-            color: var(--navy-mid); letter-spacing: .04em;
+            color: var(--navy-mid); letter-spacing: .04em; flex-shrink: 0;
         }
         .nav-name { font-weight: 600; font-size: .85rem; color: #fff; letter-spacing: .05em; }
         .nav-back {
             display: inline-flex; align-items: center; gap: 6px;
             color: rgba(255,255,255,0.5); text-decoration: none;
-            font-size: .78rem; transition: color .2s;
+            font-size: .78rem; transition: color .2s; white-space: nowrap;
         }
         .nav-back:hover { color: var(--gold); }
         .nav-back svg { flex-shrink: 0; }
+        @media(max-width: 400px) {
+            .nav-back span { display: none; }
+        }
 
+        /* ─── HERO ─── */
         .curso-hero {
             background: linear-gradient(135deg, #080A14 0%, #0D1528 40%, #0A1E3A 70%, #111830 100%);
             position: relative; overflow: hidden;
-            padding: 4rem 2rem 3.5rem;
+            padding: 3.5rem 1.25rem 3rem;
         }
+        @media(min-width: 600px) { .curso-hero { padding: 4rem 2rem 3.5rem; } }
+        @media(min-width: 1024px) { .curso-hero { padding: 5rem 2rem 4rem; } }
+
         .curso-hero-pcb { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .curso-hero-content { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
+
         .hero-cat {
             display: inline-flex; align-items: center; gap: 7px;
             background: rgba(196,185,154,0.08);
             border: 1px solid rgba(196,185,154,0.2);
             border-radius: 100px; padding: .32rem 1rem;
             font-size: .68rem; font-weight: 600; color: var(--gold);
-            letter-spacing: .09em; text-transform: uppercase; margin-bottom: 1.4rem;
+            letter-spacing: .09em; text-transform: uppercase; margin-bottom: 1.2rem;
         }
-        .hero-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulseDot 2s infinite; }
+        .hero-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulseDot 2s infinite; flex-shrink: 0; }
+
         .curso-hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-size: clamp(1.8rem, 6vw, 3.8rem);
             font-weight: 500; line-height: 1.1;
             color: #F5F0E8; margin-bottom: 1rem;
         }
         .curso-hero h1 em { font-style: italic; color: var(--gold); }
-        .hero-desc { font-size: .98rem; color: rgba(255,255,255,0.42); max-width: 600px; line-height: 1.8; margin-bottom: 2rem; }
-        .hero-meta { display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 2rem; }
+
+        .hero-desc {
+            font-size: .95rem; color: rgba(255,255,255,0.42);
+            max-width: 600px; line-height: 1.8; margin-bottom: 1.6rem;
+        }
+
+        .hero-meta {
+            display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.8rem;
+        }
         .hero-pill {
             display: inline-flex; align-items: center; gap: 6px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 100px; padding: .3rem .9rem;
-            font-size: .74rem; color: rgba(255,255,255,0.6); font-weight: 500;
+            border-radius: 100px; padding: .28rem .85rem;
+            font-size: .72rem; color: rgba(255,255,255,0.6); font-weight: 500;
         }
         .hero-pill svg { flex-shrink: 0; }
-        .hero-btns { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+        .hero-btns { display: flex; gap: .7rem; flex-wrap: wrap; }
         .btn-wa-hero {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             background: var(--wa-green); color: #fff;
-            padding: .85rem 1.8rem; border-radius: 9px;
-            font-family: 'Inter', sans-serif; font-size: .88rem; font-weight: 700;
+            padding: .85rem 1.5rem; border-radius: 9px;
+            font-family: 'Inter', sans-serif; font-size: .86rem; font-weight: 700;
             text-decoration: none; transition: all .25s; letter-spacing: .02em;
-            border: none; cursor: pointer;
+            border: none; cursor: pointer; flex: 1 1 auto; min-width: 0;
         }
         .btn-wa-hero:hover { background: #1fb855; transform: translateY(-2px); }
         .btn-temario-hero {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             background: transparent; color: #F5F0E8;
             border: 1px solid rgba(196,185,154,0.25);
-            padding: .85rem 1.8rem; border-radius: 9px;
-            font-family: 'Inter', sans-serif; font-size: .88rem; font-weight: 500;
+            padding: .85rem 1.5rem; border-radius: 9px;
+            font-family: 'Inter', sans-serif; font-size: .86rem; font-weight: 500;
             text-decoration: none; transition: all .25s; cursor: pointer;
+            flex: 1 1 auto; min-width: 0;
         }
         .btn-temario-hero:hover { background: rgba(196,185,154,0.07); transform: translateY(-2px); }
+        @media(min-width: 480px) {
+            .btn-wa-hero, .btn-temario-hero { flex: 0 1 auto; }
+        }
 
+        /* ─── LAYOUT PRINCIPAL ─── */
         .main-wrap {
             max-width: 1100px; margin: 0 auto;
-            padding: 3.5rem 2rem;
+            padding: 2.5rem 1.25rem;
             display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 2.5rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
             align-items: start;
         }
-        @media(max-width:860px){
-            .main-wrap { grid-template-columns: 1fr; }
-            .sidebar { order: -1; }
+        @media(min-width: 600px) {
+            .main-wrap { padding: 3rem 1.75rem; }
+        }
+        @media(min-width: 900px) {
+            .main-wrap {
+                grid-template-columns: 1fr 320px;
+                gap: 2.5rem;
+                padding: 3.5rem 2rem;
+            }
+        }
+        @media(min-width: 1100px) {
+            .main-wrap { grid-template-columns: 1fr 340px; }
         }
 
-        .sec-block { margin-bottom: 2.8rem; }
+        /* Sidebar arriba en móvil/tablet, al lado en desktop */
+        .sidebar { order: -1; }
+        @media(min-width: 900px) { .sidebar { order: 0; position: sticky; top: 80px; } }
+
+        /* ─── SECCIONES ─── */
+        .sec-block { margin-bottom: 2.5rem; }
         .sec-label {
             display: inline-flex; align-items: center; gap: 8px;
             font-size: .66rem; font-weight: 600; letter-spacing: .15em;
@@ -134,55 +173,68 @@
             content: ''; width: 16px; height: 1.5px;
             background: var(--gold-dk); border-radius: 2px; flex-shrink: 0;
         }
-        .sec-block h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text); margin-bottom: 1rem; line-height: 1.2; }
+        .sec-block h2 {
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+            font-weight: 500; color: var(--text); margin-bottom: 1rem; line-height: 1.2;
+        }
         .sec-block p { font-size: .92rem; color: var(--text-mid); line-height: 1.85; }
         .sec-block p + p { margin-top: .7rem; }
 
+        /* ─── INFO GRID ─── */
         .info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1px; background: var(--border);
             border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
             margin-top: 1.5rem;
         }
-        .info-cell { background: var(--beige-card); padding: 1.2rem 1.3rem; }
+        @media(min-width: 500px) {
+            .info-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media(min-width: 768px) {
+            .info-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+        }
+        .info-cell { background: var(--beige-card); padding: 1.1rem 1.2rem; }
         .info-cell .ic-lbl { font-size: .64rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
-        .info-cell .ic-val { font-size: .88rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+        .info-cell .ic-val { font-size: .86rem; font-weight: 600; color: var(--text); line-height: 1.4; }
 
+        /* ─── TEMARIO ─── */
         .temario { margin-top: 1rem; }
         .modulo-block { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; }
         .modulo-header {
             background: var(--navy-mid);
-            padding: 1.1rem 1.4rem;
-            display: flex; align-items: center; gap: 12px;
+            padding: 1rem 1.2rem;
+            display: flex; align-items: center; gap: 10px;
             cursor: pointer; user-select: none; transition: background .2s;
         }
         .modulo-header:hover { background: #1A1F35; }
-        .modulo-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--gold); flex-shrink: 0; min-width: 28px; }
-        .modulo-titulo { font-size: .9rem; font-weight: 600; color: #F5F0E8; flex: 1; }
-        .modulo-meta { font-size: .7rem; color: rgba(255,255,255,0.35); flex-shrink: 0; white-space: nowrap; }
+        .modulo-num { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 500; color: var(--gold); flex-shrink: 0; min-width: 24px; }
+        .modulo-titulo { font-size: .86rem; font-weight: 600; color: #F5F0E8; flex: 1; line-height: 1.4; }
+        .modulo-meta { font-size: .68rem; color: rgba(255,255,255,0.35); flex-shrink: 0; white-space: nowrap; display: none; }
+        @media(min-width: 480px) { .modulo-meta { display: block; } }
         .modulo-chevron { flex-shrink: 0; transition: transform .3s ease; }
         .modulo-block.open .modulo-chevron { transform: rotate(180deg); }
         .modulo-body { display: none; border-top: 1px solid var(--border); }
         .modulo-block.open .modulo-body { display: block; }
-        .modulo-desc { padding: .9rem 1.4rem; font-size: .82rem; color: var(--text-muted); background: var(--beige-mid); border-bottom: 1px solid var(--border); line-height: 1.7; }
+        .modulo-desc { padding: .85rem 1.2rem; font-size: .82rem; color: var(--text-muted); background: var(--beige-mid); border-bottom: 1px solid var(--border); line-height: 1.7; }
 
-        .seccion-block { border-bottom: 1px solid var(--border-lt); }
+        .seccion-block { border-bottom: 1px solid var(--border); }
         .seccion-block:last-child { border-bottom: none; }
-        .seccion-titulo { padding: .75rem 1.4rem .55rem; font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-dk); background: rgba(196,185,154,0.04); }
+        .seccion-titulo { padding: .7rem 1.2rem .5rem; font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-dk); background: rgba(196,185,154,0.04); }
 
-        .clase-item { display: flex; align-items: center; gap: 10px; padding: .65rem 1.4rem .65rem 1.8rem; border-top: 1px solid rgba(224,217,206,0.4); transition: background .15s; }
+        .clase-item { display: flex; align-items: center; gap: 9px; padding: .6rem 1.2rem .6rem 1.5rem; border-top: 1px solid rgba(224,217,206,0.4); transition: background .15s; }
         .clase-item:hover { background: rgba(196,185,154,0.04); }
         .clase-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .75rem; }
         .clase-icon.video { background: rgba(29,95,212,0.1); color: #185FA5; }
         .clase-icon.pdf   { background: rgba(217,65,30,0.1);  color: #993C1D; }
         .clase-icon.texto { background: rgba(154,138,106,0.1); color: var(--gold-dk); }
-        .clase-titulo { font-size: .84rem; color: var(--text-mid); flex: 1; line-height: 1.4; }
-        .clase-dur { font-size: .7rem; color: var(--text-muted); flex-shrink: 0; white-space: nowrap; }
-        .clase-gratis { font-size: .62rem; font-weight: 700; letter-spacing: .06em; background: #EAF3DE; border: 1px solid #C0DD97; color: #3B6D11; padding: .15rem .5rem; border-radius: 100px; flex-shrink: 0; }
+        .clase-titulo { font-size: .83rem; color: var(--text-mid); flex: 1; line-height: 1.4; min-width: 0; }
+        .clase-dur { font-size: .68rem; color: var(--text-muted); flex-shrink: 0; white-space: nowrap; }
+        .clase-gratis { font-size: .6rem; font-weight: 700; letter-spacing: .06em; background: #EAF3DE; border: 1px solid #C0DD97; color: #3B6D11; padding: .15rem .5rem; border-radius: 100px; flex-shrink: 0; white-space: nowrap; }
 
-        .sidebar { position: sticky; top: 80px; }
+        /* ─── SIDEBAR / TARJETA DE PRECIO ─── */
         .price-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 1.2rem; }
-        .price-card-header { background: var(--navy-mid); padding: 1.4rem 1.5rem; }
+        .price-card-header { background: var(--navy-mid); padding: 1.3rem 1.4rem; }
         .price-card-header .pc-label { font-size: .64rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: .5rem; }
         .price-main { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 500; color: #F5F0E8; line-height: 1; }
         .price-main span { font-size: 1rem; color: rgba(255,255,255,0.5); }
@@ -191,16 +243,20 @@
         .price-discount .pd-label { font-size: .64rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
         .price-discount .pd-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--gold); line-height: 1; }
         .price-discount .pd-desc { font-size: .7rem; color: rgba(255,255,255,0.3); margin-top: .25rem; }
-        .price-card-body { padding: 1.3rem 1.5rem; }
-        .anticipo-row { display: flex; align-items: center; justify-content: space-between; background: #FFF8EC; border: 1px solid #E8D49A; border-radius: 9px; padding: .8rem 1rem; margin-bottom: 1.2rem; }
-        .anticipo-row .ar-label { font-size: .72rem; font-weight: 600; color: #7A6030; }
+        .price-card-body { padding: 1.2rem 1.4rem; }
+        .anticipo-row {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #FFF8EC; border: 1px solid #E8D49A; border-radius: 9px;
+            padding: .75rem 1rem; margin-bottom: 1.1rem; gap: .5rem; flex-wrap: wrap;
+        }
+        .anticipo-row .ar-label { font-size: .7rem; font-weight: 600; color: #7A6030; }
         .anticipo-row .ar-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; color: #5A4010; }
 
         .btn-wa-card {
             display: flex; align-items: center; justify-content: center; gap: 9px;
             width: 100%; background: var(--wa-green); color: #fff;
-            padding: .95rem; border-radius: 9px;
-            font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 700;
+            padding: .9rem; border-radius: 9px;
+            font-family: 'Inter', sans-serif; font-size: .88rem; font-weight: 700;
             text-decoration: none; transition: all .25s; border: none; cursor: pointer;
             letter-spacing: .02em; margin-bottom: .7rem;
         }
@@ -209,53 +265,58 @@
             display: flex; align-items: center; justify-content: center; gap: 8px;
             width: 100%; background: transparent;
             border: 1px solid var(--border); color: var(--text-mid);
-            padding: .85rem; border-radius: 9px;
-            font-family: 'Inter', sans-serif; font-size: .85rem; font-weight: 600;
+            padding: .82rem; border-radius: 9px;
+            font-family: 'Inter', sans-serif; font-size: .84rem; font-weight: 600;
             text-decoration: none; transition: all .25s; cursor: pointer;
         }
         .btn-info-card:hover { border-color: var(--gold); color: var(--text); }
 
-        .pagos-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem 1.4rem; margin-bottom: 1.2rem; }
+        /* ─── TARJETAS PAGOS / DC3 ─── */
+        .pagos-card { background: var(--beige-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.3rem; margin-bottom: 1.2rem; }
         .pagos-title { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 1rem; }
         .pago-item { display: flex; align-items: center; gap: 9px; font-size: .82rem; color: var(--text-mid); padding: .4rem 0; border-bottom: 1px solid rgba(224,217,206,0.5); }
         .pago-item:last-child { border-bottom: none; }
         .pago-item svg { flex-shrink: 0; color: var(--gold-dk); }
 
-        .dc3-card { background: var(--beige-mid); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem; display: flex; gap: 10px; align-items: flex-start; }
+        .dc3-card { background: var(--beige-mid); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; display: flex; gap: 10px; align-items: flex-start; }
         .dc3-card svg { flex-shrink: 0; margin-top: 2px; color: var(--gold-dk); }
         .dc3-card-text { font-size: .78rem; color: var(--text-mid); line-height: 1.65; }
         .dc3-card-text strong { color: var(--text); font-weight: 600; }
 
+        /* En tablet, las tarjetas secundarias van en grid 2 columnas */
+        @media(min-width: 600px) and (max-width: 899px) {
+            .sidebar-extra { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .sidebar-extra .pagos-card, .sidebar-extra .dc3-card { margin-bottom: 0; }
+        }
+
+        /* ─── BOTÓN FLOTANTE WHATSAPP ─── */
         .wa-float {
-            position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 999;
+            position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
             display: flex; align-items: center; gap: 10px;
             background: var(--wa-green); color: #fff;
-            padding: .85rem 1.4rem; border-radius: 50px;
+            padding: .8rem 1.3rem; border-radius: 50px;
             text-decoration: none; font-family: 'Inter', sans-serif;
-            font-size: .84rem; font-weight: 700;
+            font-size: .83rem; font-weight: 700;
             box-shadow: 0 6px 28px rgba(37,211,102,0.35);
             transition: all .3s; letter-spacing: .02em;
         }
         .wa-float:hover { background: #1fb855; transform: translateY(-3px); box-shadow: 0 10px 36px rgba(37,211,102,0.45); }
         .wa-float-icon { width: 22px; height: 22px; flex-shrink: 0; }
-        @media(max-width:500px){
+        @media(max-width: 599px) {
             .wa-float span { display: none; }
-            .wa-float { padding: 1rem; border-radius: 50%; }
+            .wa-float { padding: .9rem; border-radius: 50%; bottom: 1.25rem; right: 1.25rem; }
         }
 
-        .page-footer { background: var(--navy-mid); border-top: 1px solid rgba(196,185,154,0.1); padding: 2rem; text-align: center; margin-top: 2rem; }
-        .page-footer p { font-size: .76rem; color: rgba(255,255,255,0.2); line-height: 1.9; }
+        /* ─── FOOTER ─── */
+        .page-footer { background: var(--navy-mid); border-top: 1px solid rgba(196,185,154,0.1); padding: 2rem 1.25rem; text-align: center; margin-top: 2rem; }
+        .page-footer p { font-size: .75rem; color: rgba(255,255,255,0.2); line-height: 2; }
         .page-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
         .page-footer a:hover { color: var(--gold); }
 
+        /* ─── ANIMACIONES ─── */
         @keyframes pulseDot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(1.5); } }
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media(max-width:600px){
-            .curso-hero { padding: 3rem 1.5rem 2.5rem; }
-            .main-wrap { padding: 2.5rem 1.5rem; }
-        }
     </style>
 </head>
 <body>
@@ -267,7 +328,7 @@
     </a>
     <a href="/#cursos" class="nav-back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        Volver al catálogo
+        <span>Volver al catálogo</span>
     </a>
 </nav>
 
@@ -380,7 +441,7 @@
             <div class="temario" style="margin-top:1.4rem;">
                 {% for modulo in modulos %}
                 <div class="modulo-block {% if forloop.first %}open{% endif %}">
-                    <div class="modulo-header" onclick="toggleModulo(this)">
+                    <div class="modulo-header" onclick="toggleModulo(this)" tabindex="0" role="button" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
                         <div class="modulo-num">{{ forloop.counter0|stringformat:"02d" }}</div>
                         <div class="modulo-titulo">{{ modulo.titulo }}</div>
                         <div class="modulo-meta">
@@ -417,7 +478,7 @@
                             {% endfor %}
                         </div>
                         {% empty %}
-                        <div style="padding:1rem 1.4rem;font-size:.82rem;color:var(--text-muted);">Secciones próximamente</div>
+                        <div style="padding:1rem 1.2rem;font-size:.82rem;color:var(--text-muted);">Secciones próximamente</div>
                         {% endfor %}
                     </div>
                 </div>
@@ -463,37 +524,39 @@
             </div>
         </div>
 
-        <div class="pagos-card reveal">
-            <div class="pagos-title">Formas de pago</div>
-            <div class="pago-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                Tarjeta de crédito / débito
+        <div class="sidebar-extra">
+            <div class="pagos-card reveal">
+                <div class="pagos-title">Formas de pago</div>
+                <div class="pago-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                    Tarjeta de crédito / débito
+                </div>
+                <div class="pago-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Transferencia SPEI
+                </div>
+                <div class="pago-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                    Pago en OXXO
+                </div>
+                <div class="pago-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Pago en 2 partes
+                </div>
+                <div class="pago-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    Mercado Pago (link de pago)
+                </div>
             </div>
-            <div class="pago-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Transferencia SPEI
-            </div>
-            <div class="pago-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-                Pago en OXXO
-            </div>
-            <div class="pago-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-                Pago en 2 partes
-            </div>
-            <div class="pago-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                Mercado Pago (link de pago)
-            </div>
-        </div>
 
-        <div class="dc3-card reveal">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <div class="dc3-card-text">
-                <strong>Oficio DC3 disponible</strong><br>
-                El precio del curso cubre únicamente la capacitación.
-                La tramitación del Oficio DC3 ante la STPS es un proceso
-                independiente — nuestro equipo te orienta al finalizar.
+            <div class="dc3-card reveal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div class="dc3-card-text">
+                    <strong>Oficio DC3 disponible</strong><br>
+                    El precio del curso cubre únicamente la capacitación.
+                    La tramitación del Oficio DC3 ante la STPS es un proceso
+                    independiente — nuestro equipo te orienta al finalizar.
+                </div>
             </div>
         </div>
     </aside>
@@ -515,10 +578,8 @@
 </a>
 
 <script>
-    // URL de WhatsApp asignada de forma segura via JS, nunca en href directo
     (function() {
         var waUrl = "{{ whatsapp_url|escapejs }}";
-        // Validar que solo sea URL de WhatsApp
         if (waUrl && waUrl.startsWith('https://wa.me/')) {
             document.getElementById('btn-wa-hero').href  = waUrl;
             document.getElementById('btn-wa-card').href  = waUrl;
@@ -527,7 +588,7 @@
     })();
 
     function revealCheck() {
-        document.querySelectorAll('.reveal').forEach(el => {
+        document.querySelectorAll('.reveal').forEach(function(el) {
             if (el.getBoundingClientRect().top < window.innerHeight - 60)
                 el.classList.add('active');
         });
@@ -536,11 +597,13 @@
     revealCheck();
 
     function toggleModulo(header) {
-        header.parentElement.classList.toggle('open');
+        var block = header.parentElement;
+        var expanded = block.classList.toggle('open');
+        header.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     }
 
-    document.querySelectorAll('.modulo-header').forEach(h => {
-        h.addEventListener('keydown', e => {
+    document.querySelectorAll('.modulo-header').forEach(function(h) {
+        h.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleModulo(h); }
         });
     });
