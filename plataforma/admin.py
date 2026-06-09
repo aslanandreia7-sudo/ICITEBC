@@ -85,8 +85,8 @@ class CursoAdmin(admin.ModelAdmin):
             'fields': ('precio', 'precio_general', 'precio_descuento', 'precio_descuento_label', 'anticipo'),
         }),
         ('WhatsApp y Contacto', {
-            'fields': ('whatsapp_numero', 'whatsapp_mensaje'),
-        }),
+    'fields': ('whatsapp_numero', 'whatsapp_mensaje', 'stripe_payment_link'),
+}),
     )
 
 

@@ -51,6 +51,7 @@ class Curso(models.Model):
     anticipo               = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     whatsapp_numero        = models.CharField(max_length=20, blank=True)
     whatsapp_mensaje       = models.CharField(max_length=400, blank=True)
+    stripe_payment_link = models.URLField(blank=True, null=True, verbose_name="Link de pago Stripe")
 
     class Meta:
         ordering = ['orden', 'titulo']
