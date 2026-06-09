@@ -4,6 +4,7 @@ Django settings for core project.
 
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 import cloudinary
 
@@ -94,10 +95,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # =====================================================
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+    )
 }
 
 # =====================================================
@@ -105,22 +106,10 @@ DATABASES = {
 # =====================================================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
-    },
-    {
-        'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator'
-    },
-    {
-        'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator'
-    },
-    {
-        'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator'
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # =====================================================
@@ -159,8 +148,6 @@ STORAGES = {
 
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
-MEDIA_URL = '/media/'
-
 # =====================================================
 # CLOUDINARY
 # =====================================================
@@ -190,21 +177,23 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/accounts/login/'
 
 # =====================================================
+# WHATSAPP
+# =====================================================
+
+WHATSAPP_NUMERO = os.environ.get('WHATSAPP_NUMERO')
+
+# =====================================================
 # SEGURIDAD PRODUCCIÓN
 # =====================================================
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
-
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
     SECURE_CONTENT_TYPE_NOSNIFF = True
-
     X_FRAME_OPTIONS = 'DENY'
 
 # =====================================================
